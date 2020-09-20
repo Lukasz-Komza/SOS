@@ -18,5 +18,16 @@ This is the android application, developed in Android Studio.
 
 This is the Ubuntu server responsible for managing TTS services and phone calls.
 
-## Libraries
+# Libraries
 
+A variety of libraries were used in this project.
+
+- OKHTTP
+- IBM Watson
+- Apache Commons
+- Google Play Services
+- Google Voice
+- Google Location APIs
+- Location IQ API
+- Playsound
+- Pavucontrol
