@@ -1,6 +1,8 @@
 package com.example.practice;
 
-/*import android.content.Intent;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,13 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
- */
+
 
 public class ReverseGeocoder {
-    /*public static Map<String, String> ReverseGeocode(String lat, String lon) throws IOException, Exception {
+    public static Map<String, String> ReverseGeocode(String lat, String lon) throws IOException, Exception {
         String private_key = "fb828dae4ee651";
         String url = "https://us1.locationiq.com/v1/reverse.php";
 
@@ -31,18 +30,13 @@ public class ReverseGeocoder {
         parameters.put("format", "json");
 
         //Formats the url string to add these params
-        url = getParamsString(parameters, url);
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(getParamsString(parameters, url)).build();
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .build();
+        Response response = client.newCall(request).execute();
 
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.body());
-        return parseAddress(response.body().toString());
+        String toParse = response.body().string();
+        return parseAddress(toParse);
     }
 
     public static void tester() {
@@ -70,6 +64,7 @@ public class ReverseGeocoder {
 
     public static Map<String, String> parseAddress(String jsonAddress){
         //Extracts the address data from the json string
+        System.out.println("reached");
         Pattern p = Pattern.compile(":\\{.*\\}");
         Matcher m = p.matcher(jsonAddress);
         m.find();
@@ -79,7 +74,7 @@ public class ReverseGeocoder {
 
         //Extracts each key, value pair into a Map object
         Map<String, String> addressMap = new HashMap<>();
-        p = Pattern.compile("\"(\\p{Alnum}+.)*\"");
+        p = Pattern.compile("\"\\p{Alnum}+(\\p{Alnum}+.)*\"");
         m = p.matcher(addressData);
         while (m.find()){
             String key = m.group();
@@ -89,5 +84,5 @@ public class ReverseGeocoder {
             }
         }
         return addressMap;
-    }*/
+    }
 }

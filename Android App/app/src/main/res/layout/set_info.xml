@@ -54,11 +54,6 @@
             android:layout_height="wrap_content"
             android:text="@string/loc" />
 
-        <CheckBox
-            android:id="@+id/HealthBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/fit"/>
 
         <Button
             android:id="@+id/NextButton2"

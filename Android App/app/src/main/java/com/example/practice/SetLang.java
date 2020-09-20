@@ -28,9 +28,9 @@ public class SetLang extends AppCompatActivity {
         //Set text of the language textview
         SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
         final TextView tv = (TextView) findViewById(R.id.lang_text);
-        tv.setText(prefs.getString("word_language", null));
+        tv.setText(UserData.wordmap.get("word_language"));
         final Button b = (Button) findViewById(R.id.NextButton1);
-        b.setText(prefs.getString("word_next", null));
+        b.setText(UserData.wordmap.get("word_next"));
 
         //get the spinner from the xml.
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -62,16 +62,14 @@ public class SetLang extends AppCompatActivity {
     }
     public void nextPage(){
         //Change the language of the app
-        SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("lang_new",lang_new);
-        String lang_old = prefs.getString("lang_old", "English");
-        String lang_new = prefs.getString("lang_new", "English");
-        Map<String, ?> map = prefs.getAll();
+        String lang_old = UserData.lang_old;
+        String lang_new = UserData.lang_new;
+
+        Map<String, String> map = UserData.wordmap;
         if (!lang_old.equals(lang_new)) {
-            for(Map.Entry<String, ?> entry : map.entrySet()){
+            for(Map.Entry<String, String> entry : map.entrySet()){
                 if(entry.getKey().split("_")[0].equals("word")){
-                    editor.putString(entry.getKey(), LanguageTranslation.translate((String) entry.getValue(), lang_old, lang_new));
+                    map.put(entry.getKey(), LanguageTranslation.translate((String) entry.getValue(), lang_old, lang_new));
                 }
             }
         }

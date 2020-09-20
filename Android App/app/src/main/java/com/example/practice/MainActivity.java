@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,16 +22,36 @@ public class MainActivity extends AppCompatActivity {
         boolean FirstTime = prefs.getBoolean("FirstTime", true);
 
         //Set up text map
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("word_language", "Please select language");
-        editor.putString("word_next", "Next");
-        editor.putString("word_lang_dir", "Edit Language");
-        editor.putString("word_fire", "Fire Department");
-        editor.putString("word_ems", "Emergency Medical Service");
-        editor.putString("word_police", "Police Department");
+        Map<String, String> map = new HashMap<>();
+        map.put("word_fire", "Fire Department");
+        map.put("word_ems", "Emergency Medical Service");
+        map.put("word_police", "Police Department");
+        map.put("word_app_name", "Practice");
+        map.put("word_language", "Please select language");
+        map.put("word_next", "Next");
+        map.put("word_loc", "Sync Location Data");
+        map.put("word_hint_name", "Name (Joseph Smith)");
+        map.put("word_hint_gender", "Gender");
+        map.put("word_hint_age", "Age (19 yo)");
+        map.put("word_hint_height", "Height (5'9\")");
+        map.put("word_hint_weight", "Weight (170 lbs)");
+        map.put("word_prompt_info", "Tell us about yourself:");
+        map.put("word_lang_dir", "Edit Language");
+        map.put("word_info_dir", "My Info");
+        map.put("word_call_dir", "Media Call");
+        map.put("word_text_dir", "Silent SOS");
+        map.put("word_in_queue", "Waiting...");
+        map.put("word_out_queue", "Calling");
+        map.put("word_hangup", "End Call");
+        map.put("word_media_dir ", "Add Media");
+        map.put("word_add_text", "Add Text");
+        map.put("word_add_image", "Add Image");
+        map.put("word_media_hint", "Describe your emergency:");
+        UserData.wordmap = map;
 
         //Set lang_old
-        editor.putString("lang_old", "English");
+        UserData.lang_old="English";
+        UserData.lang_new="English";
 
         //If so then mark it as opened and start SetLang
         if (FirstTime) {
@@ -43,5 +66,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
 }

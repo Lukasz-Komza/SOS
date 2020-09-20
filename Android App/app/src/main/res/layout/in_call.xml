@@ -11,18 +11,6 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/hangup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hangup" />
-
-        <Button
-            android:id="@+id/media_dir"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/media_dir" />
-
-        <Button
             android:id="@+id/fire"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,5 +27,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Button" />
+
+        <Button
+            android:id="@+id/call_addImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/media_dir" />
+
+        <EditText
+            android:id="@+id/call_message"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/media_hint"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences|textAutoCorrect" />
     </LinearLayout>
 </android.widget.RelativeLayout>

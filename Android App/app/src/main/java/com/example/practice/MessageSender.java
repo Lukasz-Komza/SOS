@@ -6,6 +6,7 @@ import android.widget.TextView;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.Map;
 
 public class MessageSender {
     private static String dirPath;
@@ -14,35 +15,32 @@ public class MessageSender {
     public static void setDirPath(String dirPath){
         MessageSender.dirPath = dirPath;
     }
-    public static void setID(int id){
+    public static void setId(int id){
         MessageSender.id = id;
     }
     public static void setImageNum(int imageNum){
         MessageSender.imageNum = imageNum;
     }
-    public static void sendData(){
+    public static void sendData(Map<String, String> map){
         String message = "{\n" +
                 "\t\"Location\": {\n" +
-                "\t\t\"house_number\": \"459\",\n" +
-                "\t\t\"road\": \"Beech Street\",\n" +
-                "\t\t\"city\": \"Washington Township\",\n" +
-                "\t\t\"state\": \"New Jersey\",\n" +
-                "\t\t\"postcode\": \"07676\",\n" +
-                "\t\t\"country\": \"United States of America\",\n" +
-                "\t\t\"lat\": \"40.99014\",\n" +
-                "\t\t\"lon\": \"-74.05355\"\n" +
+                "\t\t\"lat\": \"" + map.get("lat") + "\",\n" +
+                "\t\t\"lon\": \"" + map.get("lon") + "\",\n" +
+                "\t\t\"house_number\": " + map.get("house_number") + ",\n" +
+                "\t\t\"road\": " + map.get("road") + ",\n" +
+                "\t\t\"city\": " + map.get("city") + ",\n" +
+                "\t\t\"country\": " + map.get("country") + "\n" +
                 "\t},\n" +
                 "\t\"User\": {\n" +
-                "\t\t\"name\": \"Ethan\",\n" +
-                "\t\t\"gender\":\"male\",\n" +
-                "\t\t\"height\": \"71\",\n" +
-                "\t\t\"weight\": \"200\",\n" +
-                "\t\t\"heart_rate\":\"70\",\n" +
-                "\t\t\"language\":\"English\"\n" +
+                "\t\t\"name\": \"" + map.get("name") + "\",\n" +
+                "\t\t\"gender\":\"" + map.get("gender") + "\",\n" +
+                "\t\t\"height\": \"" + map.get("height") + "\",\n" +
+                "\t\t\"weight\": \"" + map.get("weight") + "\",\n" +
+                "\t\t\"language\":\"" + map.get("language") + "\"\n" +
                 "\t},\n" +
-                "\t\"Emergency\":\"Fire\",\n" +
-                "\t\"tts_true\":\"false\",\n" +
-                "\t\"tts_content\":\"\"\n" +
+                "\t\"Emergency\":\"" + map.get("emergency_type") + "\",\n" +
+                "\t\"tts_true\":\"" + map.get("tts_type") + "\",\n" +
+                "\t\"tts_content\":\"" + map.get("tts_content") + "\"\n" +
                 "}\n" +
                 "\t\t";
         InputStream is = new ByteArrayInputStream(message.getBytes());

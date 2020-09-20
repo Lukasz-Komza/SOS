@@ -69,8 +69,13 @@ public class SetInfo extends AppCompatActivity {
     };
     private static boolean shareLocation = false;
     private static boolean shareHealth = false;
-    private EditText et;
     private FusedLocationProviderClient fusedLocationClient;
+
+    private static String name;
+    private static String gender;
+    private static String age;
+    private static String height;
+    private static String weight;
 
 
 
@@ -89,16 +94,8 @@ public class SetInfo extends AppCompatActivity {
                 SetInfo.shareLocation = checked;
             }
         } );
+        c1.setText(UserData.wordmap.get("word_loc"));
 
-        CheckBox c2 = (CheckBox) findViewById(R.id.HealthBox);
-        c2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Is the view now checked?
-                boolean checked = ((CheckBox) view).isChecked();
-                SetInfo.shareHealth = checked;
-            }
-        } );
 
         //Create EditText object to accept user input
         EditText nameText = (EditText) findViewById(R.id.nameText);
@@ -113,9 +110,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("name", v.toString());
+                    UserData.name = v.getText().toString();
 
                     //Set the text in the box to nothing
                     v.setText("");
@@ -125,6 +120,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
+        nameText.setHint(UserData.wordmap.get("word_hint_name"));
         //Create EditText object to accept user input
         EditText genderText = (EditText) findViewById(R.id.genderText);
         genderText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -138,9 +134,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("gender", v.toString());
+                    UserData.gender = v.getText().toString();
 
                     //Set the text in the box to nothing
                     v.setText("");
@@ -150,6 +144,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
+        genderText.setHint(UserData.wordmap.get("word_hint_gender"));
         //Create EditText object to accept user input
         EditText ageText = (EditText) findViewById(R.id.ageText);
         ageText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -163,9 +158,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("age", v.toString());
+                    UserData.age = v.getText().toString();
 
                     //Set the text in the box to nothing
                     v.setText("");
@@ -175,6 +168,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
+        ageText.setHint(UserData.wordmap.get("word_hint_age"));
         //Create EditText object to accept user input
         EditText heightText = (EditText) findViewById(R.id.heightText);
         heightText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -188,10 +182,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("height", v.toString());
-
+                    UserData.height = v.getText().toString();
                     //Set the text in the box to nothing
                     v.setText("");
                     return true;
@@ -200,6 +191,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
+        heightText.setHint(UserData.wordmap.get("word_hint_height"));
         //Create EditText object to accept user input
         EditText weightText = (EditText) findViewById(R.id.weightText);
         weightText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -213,9 +205,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("weight", v.toString());
+                    UserData.weight = v.getText().toString();
 
                     //Set the text in the box to nothing
                     v.setText("");
@@ -225,7 +215,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
-
+        weightText.setHint(UserData.wordmap.get("word_hint_weight"));
         //Calls nextPage() on button click
         final Button button = findViewById(R.id.NextButton2);
         button.setOnClickListener(new View.OnClickListener() {
@@ -233,17 +223,10 @@ public class SetInfo extends AppCompatActivity {
                 ((SetInfo) v.getContext()).nextPage();
             }
         });
+        button.setText(UserData.wordmap.get("word_next"));
     }
 
     public void nextPage() {
-        //Save user variables
-        if (et != null) {
-            String name = et.getText().toString();
-            SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("Name", name);
-            editor.apply();
-        }
         //Enables location
         if (shareLocation) {
             statusCheck();
@@ -258,33 +241,41 @@ public class SetInfo extends AppCompatActivity {
                             public void onSuccess(Location location) {
                                 // Got last known location. In some rare situations this can be null.
                                 if (location != null) {
+                                    UserData.lat = Double.toString(location.getLatitude());
+                                    UserData.lon = Double.toString(location.getLongitude());
+
                                     SetInfo.interpretLocation(location);
                                 }
                             }
                         });
             }
         }
+
+
         //Goes to the menu page
         Intent intent = new Intent(this, Menu.class);
         startActivity(intent);
+
+
     }
     public static void interpretLocation(Location location){
-
-        //Convert to latitude and longitude
-        Double lat = location.getLatitude();
-        Double lon = location.getLongitude();
-
         //Convert these to address form
-        /*
-        ReverseGeocoder rg = new ReverseGeocoder();
+        String lat = Double.toString(location.getLatitude());
+        String lon = Double.toString(location.getLongitude());
+
         try{
-            Map<String, String> addressMap = rg.ReverseGeocode(Double.toString(lat), Double.toString(lon));
+            StrictMode.ThreadPolicy tp = StrictMode.ThreadPolicy.LAX;
+            StrictMode.setThreadPolicy(tp);
+
+            Map<String, String> addressMap = ReverseGeocoder.ReverseGeocode(lat, lon);
             UserData.locationMap = addressMap;
-            UserData.country_code = addressMap.get("country_code");
+            String s = "";
+            UserData.country_code = addressMap.get("\"country_code\"");
         }
         catch(Exception e){
+            UserData.country_code = e.toString();
         }
-         */
+
     }
 
     //Checks if the location services are enables

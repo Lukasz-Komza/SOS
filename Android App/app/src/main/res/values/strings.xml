@@ -11,7 +11,7 @@
     <string name="prompt_info">Tell us about yourself:</string>
     <!-- menu -->
     <string name="lang_dir">Edit Language</string>
-    <string name="info_dir">Edit Info</string>
+    <string name="info_dir">My Info</string>
     <string name="call_dir">Call</string>
     <string name="text_dir">Text</string>
     <!-- queue -->
