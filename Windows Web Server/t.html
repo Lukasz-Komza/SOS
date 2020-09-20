@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SOS</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../SOSstyles.css">
+    <script src="../SOSfunctions.js"></script>
+    
+  </head>
+<body>
+
+  <h1>SOS Emergency Response Dashboard</h1>
+
+  <div class="container">
+    
+    <!-- Description of situation and user data-->
+    <div class="row">
+      <div id="description" class="col-5">No information given.</div>
+      <div id="grayspace" class="col-2" style="background-color:gray;"></div>
+      <div id="caller_data" class="col-5">#caller_data#</div>
+    </div>
+
+    <!-- Media section -->
+    <div class="row">
+      <div id="media" class="col-12">
+      <h4>Media</h4>
+      <div id="pics" class="row"></div>
+      </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Image</p>
+        <div id="modal_image"></div>
+      </div>
+
+    </div>
+    
+  </div>
+
+  <script src="../ImageProtocal.js"></script>
+  <script src="../js/jquery-3.5.1.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+
+</body>
+</html>
