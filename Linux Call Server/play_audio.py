@@ -11,13 +11,16 @@ def grabFile(location,name):
     localfile.close()
 server = ftplib.FTP()
 server.connect('ftp.komza.com', 21)
-server.login('ftp.komza.com|anonymous','lukasz@komza.com')
+server.login('ftp.komza.com|lkomza','G!10w!ceStr0ma822')
 
+print("/TTS/"+ID+".txt")
 server.dir()
-grabFile("/TTS Requests/",ID+".txt")
+grabFile("/TTS/",ID+".txt")
 
 file = open(ID+".txt")
 text = file.read()
+text+=" My information is available at S O S dot com slash "
+text+=ID[0]+" "+ID[1]+" "+ID[2]+" "+ID[3]
 
 data = '--data "{\\"text\\":\\"'+text+'\\"}"'
 
