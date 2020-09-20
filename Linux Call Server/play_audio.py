@@ -11,7 +11,7 @@ def grabFile(location,name):
     localfile.close()
 server = ftplib.FTP()
 server.connect('ftp.komza.com', 21)
-server.login('ftp.komza.com|lkomza','G!10w!ceStr0ma822')
+server.login('ftp.komza.com|lkomza','not_the_real_password ;)')
 
 print("/TTS/"+ID+".txt")
 server.dir()
