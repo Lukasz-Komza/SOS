@@ -50,7 +50,9 @@ public class InCall extends AppCompatActivity {
         String dirPath = "/Media/";
         MessageSender.setDirPath(dirPath);
 
-        SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
+        final TextView tv = (TextView) findViewById(R.id.idView);
+        tv.setText(UserData.wordmap.get("word_text_id") + Integer.toString(id));
+
         Button fire = findViewById(R.id.fire);
         fire.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

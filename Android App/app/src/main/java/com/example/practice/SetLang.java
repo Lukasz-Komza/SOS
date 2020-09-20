@@ -26,7 +26,6 @@ public class SetLang extends AppCompatActivity {
         StrictMode.setThreadPolicy(tp);
 
         //Set text of the language textview
-        SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
         final TextView tv = (TextView) findViewById(R.id.lang_text);
         tv.setText(UserData.wordmap.get("word_language"));
         final Button b = (Button) findViewById(R.id.NextButton1);

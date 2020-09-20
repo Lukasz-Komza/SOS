@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         map.put("word_add_text", "Add Text");
         map.put("word_add_image", "Add Image");
         map.put("word_media_hint", "Describe your emergency:");
+        map.put("word_text_id", "Your id is ");
         UserData.wordmap = map;
 
         //Set lang_old
