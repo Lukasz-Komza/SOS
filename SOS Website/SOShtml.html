@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SOS</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="SOSstyles.css">
+    <script src="SOSfunctions.js"></script>
+    
+  </head>
+<body>
+
+  <h1>SOS Emergency Response Dashboard</h1>
+
+  <h4 style="width:80px; color:lightgray; background-color:#FF1D1D; border-radius: 10px; text-align: center; margin-left:auto; margin-right:auto; font-size: 12px;">Fire</h4>
+
+  <div class="container">
+    
+    <!-- Description of situation and user data-->
+    <div class="row">
+      <div id="description" class="col-5">
+        <div style="font-size: 15px; border-color: black;">Emergency Description</div>
+        <div><!--description stuff goes here--></div>
+      </div>
+      <div class="col-2">&nbsp</div>
+      <div id="caller_data" class="col-5">
+        <div style="font-size: 15px; border-color: black;">Caller Data</div>
+        <div><!--health stuff goes here--></div>
+      </div>
+    </div>
+
+    <!-- Media section -->
+    <div class="row">
+      <div id="media" class="col-12">
+      <h4>Media</h4>
+      <div id="pics" class="row"></div>
+      </div>
+    </div>
+
+<!--
+    <div id="myModal" class="modal">
+
+     
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modal_image"></div>
+      </div>
+
+
+    </div>
+-->
+
+    <div style="text-align: center;"><h4>Location Services</h4></div>
+    <div id="map"></div>
+
+    <div>&nbsp</div>
+    
+  </div>
+
+  <script src="ImageProtocal.js"></script>
+  <script src="SOSmaps.js"></script>
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrb_OGNVzaiXwE-N-LwaAoVdh3_ApU0c0&callback=initMap"></script>
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
