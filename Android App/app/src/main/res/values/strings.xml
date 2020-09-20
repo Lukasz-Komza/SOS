@@ -1,0 +1,29 @@
+<resources name = "strings" type = "id">
+    <!-- general -->
+    <string name="app_name">Practice</string>
+    <!-- set_lang -->
+    <string name="language">Please select language</string>
+    <!-- set_info -->
+    <string name="next">Next</string>
+    <string name="fit">Sync Android Fit Data</string>
+    <string name="loc">Sync Location Data</string>
+    <string name="hint_name">Name (Ethan)</string>
+    <string name="prompt_info">Tell us about yourself:</string>
+    <!-- menu -->
+    <string name="lang_dir">Edit Language</string>
+    <string name="info_dir">Edit Info</string>
+    <string name="call_dir">Call</string>
+    <string name="text_dir">Text</string>
+    <!-- queue -->
+    <string name="in_queue">Waiting...</string>
+    <string name="out_queue">Calling</string>
+    <!-- in_call -->
+    <string name="hangup">End Call</string>
+    <string name="media_dir">Add Media</string>
+    <!-- add_media -->
+    <string name="add_text">Add Text</string>
+    <string name="add_image">Add Image</string>
+    <string name="media_hint">Describe your emergency.</string>
+
+
+</resources>
