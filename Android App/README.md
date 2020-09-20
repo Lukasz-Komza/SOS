@@ -2,6 +2,7 @@
 Android app for users to operate
 
 !!NOTE: CANNOT ACCESS APP FUNCTIONALITY WITHOUT CORRECT PASSWORD VALUE IN FTPCOMMUNICATION.JAVA!!
+
 TO OPEN:
   DOWNLOAD ANDROID STUDIO:
     https://developer.android.com/studio/index.html
