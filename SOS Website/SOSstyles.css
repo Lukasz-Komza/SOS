@@ -18,7 +18,9 @@ h1 {
 }
 
 
-
+#caller_data {
+    font-size: 14px;
+  }
 
 #caller_data, #description {
 	  color: black;
@@ -60,8 +62,8 @@ h1 {
   margin: 15% auto; 
   padding: 20px;
   border: 1px solid #888;
-  width: 60%; 
-  height: 60%; 
+  width: 600px; 
+  height:400px;
 }
 
 
@@ -87,10 +89,6 @@ h1 {
         
       }
 
-img:active {
-
-  -webkit-transform: scale(8,8);
-}
 
 html {
     height: 100%;
