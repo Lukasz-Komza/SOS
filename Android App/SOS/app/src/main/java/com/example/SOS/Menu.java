@@ -67,7 +67,7 @@ public class Menu extends AppCompatActivity {
             }
         });
         textButton.setText(UserData.wordmap.get("word_text_dir"));
-        final ImageButton redButton = findViewById(R.id.redButton);
+        final Button redButton = findViewById(R.id.redButton);
         redButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((Menu) v.getContext()).sendData();
