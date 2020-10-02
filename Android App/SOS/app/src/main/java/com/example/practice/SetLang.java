@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class SetLang extends AppCompatActivity {
@@ -41,6 +42,7 @@ public class SetLang extends AppCompatActivity {
             items[i] = entry.getKey();
             i++;
         }
+        Arrays.sort(items);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
