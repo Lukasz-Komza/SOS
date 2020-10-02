@@ -12,7 +12,7 @@ public class LangSpinnerActivity extends Activity implements AdapterView.OnItemS
         //Retrieve the selected item
         String language = (String) parent.getItemAtPosition(pos);
         //Store data in LanguageAssistant
-        UserData.lang_new = language;
+        LocalFileRetriever.storeToMap("dataMap", "lang_new", language, this);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {

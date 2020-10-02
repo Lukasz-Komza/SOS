@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 
 public class LocalFileRetriever {
@@ -36,7 +37,7 @@ public class LocalFileRetriever {
         return stringBuilder.toString();
     }
     public static Map<String, String> retrieveMap(String filename, Context context){
-        Map<String, String> map = null;
+        Map<String, String> map = new HashMap<>();
         try {
             FileInputStream fis = context.openFileInput(filename);
             ObjectInputStream is = new ObjectInputStream(fis);

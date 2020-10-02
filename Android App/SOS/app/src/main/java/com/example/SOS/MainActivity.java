@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -21,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Determine if the app is being opened for the first time
-        SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
-        boolean FirstTime = prefs.getBoolean("FirstTime", true);
+        boolean FirstTime = isNullOrEmpty(LocalFileRetriever.retrieveMap("dataMap",this).get("FirstTime"));
 
 
         //If so then mark it as opened and start SetLang

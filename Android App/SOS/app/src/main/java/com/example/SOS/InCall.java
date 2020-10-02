@@ -160,10 +160,10 @@ public class InCall extends AppCompatActivity {
         Map<String, String> map = new HashMap<>();
         map.put("lat", LocalFileRetriever.retrieveMap("dataMap",this).get("lat"));
         map.put("lon", LocalFileRetriever.retrieveMap("dataMap",this).get("lon"));
-        map.put("house_number", LocalFileRetriever.retrieveMap("dataMap",this).get("\"house_number\""));
-        map.put("road", LocalFileRetriever.retrieveMap("dataMap",this).get("\"road\""));
-        map.put("city", LocalFileRetriever.retrieveMap("dataMap",this).get("\"city\""));
-        map.put("country", LocalFileRetriever.retrieveMap("dataMap",this).get("\"country\""));
+        map.put("house_number", LocalFileRetriever.retrieveMap("locMap",this).get("\"house_number\""));
+        map.put("road", LocalFileRetriever.retrieveMap("locMap",this).get("\"road\""));
+        map.put("city", LocalFileRetriever.retrieveMap("locMap",this).get("\"city\""));
+        map.put("country", LocalFileRetriever.retrieveMap("locMap",this).get("\"country\""));
         map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
         map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
         map.put("height", LocalFileRetriever.retrieveMap("dataMap",this).get("height"));
