@@ -18,7 +18,7 @@
             <EditText
                 android:id="@+id/message"
                 android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_height="200dp"
                 android:inputType="textCapSentences|textAutoCorrect"
                 android:background="@drawable/rounded_textbox"
                 android:layout_margin="10dp"

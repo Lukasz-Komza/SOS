@@ -1,6 +1,6 @@
 <resources name = "strings" type = "id">
     <!-- general -->
-    <string name="app_name">Practice</string>
+    <string name="app_name">SOS</string>
     <!-- set_lang -->
     <string name="language">Please select language</string>
     <!-- set_info -->

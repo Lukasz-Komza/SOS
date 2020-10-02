@@ -1,4 +1,4 @@
-package com.example.practice;
+package com.example.SOS;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
