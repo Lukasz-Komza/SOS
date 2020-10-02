@@ -4,62 +4,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SetInfo">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <TextView
+                android:id="@+id/infoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_centerVertical="true"
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="16dp">
 
         <EditText
             android:id="@+id/nameText"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_name"
+            android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
+            android:background="@drawable/rounded_textbox"
+            android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
         <EditText
             android:id="@+id/genderText"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_name"
+            android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
+            android:background="@drawable/rounded_textbox"
+            android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
         <EditText
             android:id="@+id/ageText"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_name"
+            android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
+            android:background="@drawable/rounded_textbox"
+            android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
         <EditText
             android:id="@+id/heightText"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_name"
+            android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
+            android:background="@drawable/rounded_textbox"
+            android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
         <EditText
             android:id="@+id/weightText"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_name"
+            android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
+            android:background="@drawable/rounded_textbox"
+            android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
-
-        <CheckBox
-            android:id="@+id/LocationBox"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/loc" />
-
-
-        <Button
-            android:id="@+id/NextButton2"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <CheckBox
+                android:id="@+id/LocationBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/next" />
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.5" />
+            <Button
+                android:id="@+id/NextButton2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                android:layout_margin="10dp" />
+        </LinearLayout>
 
     </LinearLayout>
 </android.widget.RelativeLayout>
