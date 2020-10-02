@@ -37,12 +37,16 @@ public class SetLang extends AppCompatActivity {
         //create a list of items for the spinner from the IBM language list
         Map<String, String> langMap = LanguageTranslation.getLanguages();
         String[] items = new String[langMap.size()];
-        int i = 0;
+        int i = 1;
         for (Map.Entry<String, String> entry : langMap.entrySet()) {
+            if(entry.getKey().equals("English")){
+                continue;
+            }
             items[i] = entry.getKey();
             i++;
         }
         Arrays.sort(items);
+        items[0] = "English";
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
