@@ -45,28 +45,28 @@ public class Menu extends AppCompatActivity {
                 ((Menu) v.getContext()).lang();
             }
         });
-        langButton.setText(UserData.wordmap.get("word_lang_dir"));
+        langButton.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_lang_dir"));
         final Button infoButton = findViewById(R.id.InfoButton);
         infoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((Menu) v.getContext()).info();
             }
         });
-        infoButton.setText(UserData.wordmap.get("word_info_dir"));
+        infoButton.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_info_dir"));
         final Button callButton = findViewById(R.id.CallButton);
         callButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((Menu) v.getContext()).queue("Call");
             }
         });
-        callButton.setText(UserData.wordmap.get("word_call_dir"));
+        callButton.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_call_dir"));
         final Button textButton = findViewById(R.id.TextButton);
         textButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((Menu) v.getContext()).queue("Text");
             }
         });
-        textButton.setText(UserData.wordmap.get("word_text_dir"));
+        textButton.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_text_dir"));
         final Button redButton = findViewById(R.id.redButton);
         redButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -100,19 +100,19 @@ public class Menu extends AppCompatActivity {
         }
         startActivity(intent);
     }
-    public static void sendData(){
+    public void sendData(){
         Map<String, String> map = new HashMap<>();
-        map.put("lat", UserData.lat);
-        map.put("lon", UserData.lon);
-        map.put("house_number", UserData.locationMap.get("\"house_number\""));
-        map.put("road", UserData.locationMap.get("\"road\""));
-        map.put("city", UserData.locationMap.get("\"city\""));
-        map.put("country", UserData.locationMap.get("\"country\""));
-        map.put("name", UserData.name);
-        map.put("gender", UserData.gender);
-        map.put("height", UserData.height);
-        map.put("weight",UserData.weight);
-        map.put("language", UserData.lang_new);
+        map.put("lat", LocalFileRetriever.retrieveMap("dataMap",this).get("lat"));
+        map.put("lon", LocalFileRetriever.retrieveMap("dataMap",this).get("lon"));
+        map.put("house_number", LocalFileRetriever.retrieveMap("dataMap",this).get("\"house_number\""));
+        map.put("road", LocalFileRetriever.retrieveMap("dataMap",this).get("\"road\""));
+        map.put("city", LocalFileRetriever.retrieveMap("dataMap",this).get("\"city\""));
+        map.put("country", LocalFileRetriever.retrieveMap("dataMap",this).get("\"country\""));
+        map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
+        map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
+        map.put("height", LocalFileRetriever.retrieveMap("dataMap",this).get("height"));
+        map.put("weight",LocalFileRetriever.retrieveMap("dataMap",this).get("weight"));
+        map.put("language", LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new"));
         map.put("emergency_type", "Police");
 
         map.put("tts_true", "false");
@@ -137,7 +137,7 @@ public class Menu extends AppCompatActivity {
     public void callNumber(String service){
         String number = null;
         //Retrieve the number for your location
-        if (UserData.country_code != null) {
+        if (LocalFileRetriever.retrieveMap("dataMap",this).get("country_code") != null) {
             try {
                 OutputStream os = FTPCommunication.retrieveFile("emergency_numbers.txt", false);
                 String message = os.toString();
@@ -152,7 +152,7 @@ public class Menu extends AppCompatActivity {
                 System.out.println(i);
                 for (String s : rows) {
                     data = s.split(",");
-                    if (data[0].equals(UserData.country_code)) {
+                    if (data[0].equals(LocalFileRetriever.retrieveMap("dataMap",this).get("country_code"))) {
                         number = data[i];
                         break;
                     }
@@ -162,6 +162,7 @@ public class Menu extends AppCompatActivity {
             }
         }
         else{
+            //TODO: change placeholder
             number = "2015614917";
         }
 

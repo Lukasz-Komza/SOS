@@ -94,7 +94,7 @@ public class SetInfo extends AppCompatActivity {
                 SetInfo.shareLocation = checked;
             }
         } );
-        c1.setText(UserData.wordmap.get("word_loc"));
+        c1.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
 
 
         //Create EditText object to accept user input
@@ -110,7 +110,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    UserData.name = v.getText().toString();
+                    LocalFileRetriever.storeToMap("dataMap", "name", v.getText().toString(), v.getContext());
 
                     //Set the text in the box to nothing
                     v.setText("");
@@ -120,7 +120,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
-        nameText.setHint(UserData.wordmap.get("word_hint_name"));
+        nameText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_name"));
         //Create EditText object to accept user input
         EditText genderText = (EditText) findViewById(R.id.genderText);
         genderText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -133,8 +133,8 @@ public class SetInfo extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-                    //Get the text they entered and store it as name
-                    UserData.gender = v.getText().toString();
+                    //Get the text they entered and store it as gender
+                    LocalFileRetriever.storeToMap("dataMap", "gender", v.getText().toString(), v.getContext());
 
                     //Set the text in the box to nothing
                     v.setText("");
@@ -144,7 +144,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
-        genderText.setHint(UserData.wordmap.get("word_hint_gender"));
+        genderText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_gender"));
         //Create EditText object to accept user input
         EditText ageText = (EditText) findViewById(R.id.ageText);
         ageText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -158,7 +158,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    UserData.age = v.getText().toString();
+                    LocalFileRetriever.storeToMap("dataMap", "age", v.getText().toString(), v.getContext());
 
                     //Set the text in the box to nothing
                     v.setText("");
@@ -168,7 +168,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
-        ageText.setHint(UserData.wordmap.get("word_hint_age"));
+        ageText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_age"));
         //Create EditText object to accept user input
         EditText heightText = (EditText) findViewById(R.id.heightText);
         heightText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -182,7 +182,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    UserData.height = v.getText().toString();
+                    LocalFileRetriever.storeToMap("dataMap", "height", v.getText().toString(), v.getContext());
                     //Set the text in the box to nothing
                     v.setText("");
                     return true;
@@ -191,7 +191,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
-        heightText.setHint(UserData.wordmap.get("word_hint_height"));
+        heightText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_height"));
         //Create EditText object to accept user input
         EditText weightText = (EditText) findViewById(R.id.weightText);
         weightText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -205,7 +205,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    UserData.weight = v.getText().toString();
+                    LocalFileRetriever.storeToMap("dataMap", "weight", v.getText().toString(), v.getContext());
 
                     //Set the text in the box to nothing
                     v.setText("");
@@ -215,7 +215,7 @@ public class SetInfo extends AppCompatActivity {
 
             }
         });
-        weightText.setHint(UserData.wordmap.get("word_hint_weight"));
+        weightText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_weight"));
         //Calls nextPage() on button click
         final Button button = findViewById(R.id.NextButton2);
         button.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +223,7 @@ public class SetInfo extends AppCompatActivity {
                 ((SetInfo) v.getContext()).nextPage();
             }
         });
-        button.setText(UserData.wordmap.get("word_next"));
+        button.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_next"));
     }
 
     public void nextPage() {
@@ -241,10 +241,9 @@ public class SetInfo extends AppCompatActivity {
                             public void onSuccess(Location location) {
                                 // Got last known location. In some rare situations this can be null.
                                 if (location != null) {
-                                    UserData.lat = Double.toString(location.getLatitude());
-                                    UserData.lon = Double.toString(location.getLongitude());
-
-                                    SetInfo.interpretLocation(location);
+                                    //Return to set info to store
+                                    SetInfo a = (SetInfo) getApplicationContext();
+                                    a.interpretLocation(location);
                                 }
                             }
                         });
@@ -258,22 +257,27 @@ public class SetInfo extends AppCompatActivity {
 
 
     }
-    public static void interpretLocation(Location location){
+    public void interpretLocation(Location location){
         //Convert these to address form
         String lat = Double.toString(location.getLatitude());
         String lon = Double.toString(location.getLongitude());
+
+        Map<String,String> map = LocalFileRetriever.retrieveMap("dataMap", this);
+        map.put("lat", lat);
+        map.put("lon", lon);
+        LocalFileRetriever.storeMap("dataMap", map, this);
 
         try{
             StrictMode.ThreadPolicy tp = StrictMode.ThreadPolicy.LAX;
             StrictMode.setThreadPolicy(tp);
 
             Map<String, String> addressMap = ReverseGeocoder.ReverseGeocode(lat, lon);
-            UserData.locationMap = addressMap;
-            String s = "";
-            UserData.country_code = addressMap.get("\"country_code\"");
+            LocalFileRetriever.storeMap("locMap", addressMap,this);
+
+            map.put("country_code", addressMap.get("\"country_code\""));
+            LocalFileRetriever.storeMap("dataMap", map,this);
         }
         catch(Exception e){
-            UserData.country_code = e.toString();
         }
 
     }

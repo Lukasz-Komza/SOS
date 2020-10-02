@@ -32,34 +32,11 @@ public class SetLang extends AppCompatActivity {
         StrictMode.ThreadPolicy tp = StrictMode.ThreadPolicy.LAX;
         StrictMode.setThreadPolicy(tp);
 
-        //Testing file retrieval
-        String filename = "myfile";
-        FileInputStream fis = null;
-        try {
-            fis = this.openFileInput(filename);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        InputStreamReader inputStreamReader =
-                new InputStreamReader(fis, StandardCharsets.UTF_8);
-        StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            String line = reader.readLine();
-            while (line != null) {
-                stringBuilder.append(line).append('\n');
-                line = reader.readLine();
-            }
-        } catch (IOException e) {
-            // Error occurred when opening raw file for reading.
-        }
-        String contents = stringBuilder.toString();
-
-
         //Set text of the language textview
         final TextView tv = (TextView) findViewById(R.id.lang_text);
-        tv.setText(/*UserData.wordmap.get("word_language"));*/ contents);
+        tv.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_language"));
         final Button b = (Button) findViewById(R.id.NextButton1);
-        b.setText(UserData.wordmap.get("word_next"));
+        b.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_next"));
 
         //get the spinner from the xml.
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -99,10 +76,10 @@ public class SetLang extends AppCompatActivity {
     }
     public void nextPage(){
         //Change the language of the app
-        String lang_old = UserData.lang_old;
-        String lang_new = UserData.lang_new;
+        String lang_old = LocalFileRetriever.retrieveMap("dataMap",this).get("lang_old");
+        String lang_new = LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new");
 
-        Map<String, String> map = UserData.wordmap;
+        Map<String, String> map = LocalFileRetriever.retrieveMap("stringMap",this);
         if (!lang_old.equals(lang_new)) {
             for(Map.Entry<String, String> entry : map.entrySet()){
                 if(entry.getKey().split("_")[0].equals("word")){

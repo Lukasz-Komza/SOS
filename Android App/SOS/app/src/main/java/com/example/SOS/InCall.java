@@ -51,37 +51,37 @@ public class InCall extends AppCompatActivity {
         MessageSender.setDirPath(dirPath);
 
         final TextView tv = (TextView) findViewById(R.id.idView);
-        tv.setText(UserData.wordmap.get("word_text_id") + Integer.toString(id));
+        tv.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_text_id") + Integer.toString(id));
 
         Button fire = findViewById(R.id.fire);
         fire.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((InCall) v.getContext()).callNumber("Fire");
-                UserData.emergency_type = "Fire";
-                sendData();
+                LocalFileRetriever.storeToMap("dataMap", "emergency_type", "Fire", v.getContext());
+                ((InCall) v.getContext()).sendData();
             }
         });
-        fire.setText(UserData.wordmap.get("word_fire"));
+        fire.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_fire"));
 
         Button ems = findViewById(R.id.ems);
         ems.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((InCall) v.getContext()).callNumber("Ambulance");
-                UserData.emergency_type = "EMS";
-                sendData();
+                LocalFileRetriever.storeToMap("dataMap", "emergency_type", "EMS", v.getContext());
+                ((InCall) v.getContext()).sendData();
             }
         });
-        ems.setText(UserData.wordmap.get("word_ems"));
+        ems.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_ems"));
 
         Button police = findViewById(R.id.police);
         police.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((InCall) v.getContext()).callNumber("Police");
-                UserData.emergency_type = "Police";
-                sendData();
+                LocalFileRetriever.storeToMap("dataMap", "emergency_type", "Police", v.getContext());
+                ((InCall) v.getContext()).sendData();
             }
         });
-        police.setText(UserData.wordmap.get("word_police"));
+        police.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_police"));
 
         final Button imageButton = findViewById(R.id.call_addImage);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +89,7 @@ public class InCall extends AppCompatActivity {
                 ((InCall) v.getContext()).dispatchTakePictureIntent();
             }
         });
-        imageButton.setText(UserData.wordmap.get("word_add_image"));
+        imageButton.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_add_image"));
 
         //Listen for the textbox
         EditText editText = (EditText) findViewById(R.id.call_message);
@@ -104,8 +104,8 @@ public class InCall extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     String message = v.getText().toString();
-                    if(!UserData.lang_new.equals("English")){
-                        String translated = LanguageTranslation.translate(message, "English", UserData.lang_new);
+                    if(!LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new").equals("English")){
+                        String translated = LanguageTranslation.translate(message, "English", LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new"));
                         v.setText(translated);
                     }
                     //Get the text they entered and send it to the server
@@ -118,12 +118,12 @@ public class InCall extends AppCompatActivity {
                 return false;
             }
         });
-        editText.setHint(UserData.wordmap.get("word_media_hint"));
+        editText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_media_hint"));
     }
     public void callNumber(String service){
         String number = null;
         //Retrieve the number for your location
-        if (UserData.country_code != null) {
+        if (LocalFileRetriever.retrieveMap("dataMap",this).get("country_code") != null) {
             try {
                 OutputStream os = FTPCommunication.retrieveFile("emergency_numbers.txt", false);
                 String message = os.toString();
@@ -138,7 +138,7 @@ public class InCall extends AppCompatActivity {
                 System.out.println(i);
                 for (String s : rows) {
                     data = s.split(",");
-                    if (data[0].equals(UserData.country_code)) {
+                    if (data[0].equals(LocalFileRetriever.retrieveMap("dataMap",this).get("country_code"))) {
                         number = data[i];
                         break;
                     }
@@ -156,20 +156,20 @@ public class InCall extends AppCompatActivity {
         callIntent.setData(Uri.parse("tel:"+number));//change the number
         startActivity(callIntent);
     }
-    public static void sendData(){
+    public void sendData(){
         Map<String, String> map = new HashMap<>();
-        map.put("lat", UserData.lat);
-        map.put("lon", UserData.lon);
-        map.put("house_number", UserData.locationMap.get("\"house_number\""));
-        map.put("road", UserData.locationMap.get("\"road\""));
-        map.put("city", UserData.locationMap.get("\"city\""));
-        map.put("country", UserData.locationMap.get("\"country\""));
-        map.put("name", UserData.name);
-        map.put("gender", UserData.gender);
-        map.put("height", UserData.height);
-        map.put("weight",UserData.weight);
-        map.put("language", UserData.lang_new);
-        map.put("emergency_type", UserData.emergency_type);
+        map.put("lat", LocalFileRetriever.retrieveMap("dataMap",this).get("lat"));
+        map.put("lon", LocalFileRetriever.retrieveMap("dataMap",this).get("lon"));
+        map.put("house_number", LocalFileRetriever.retrieveMap("dataMap",this).get("\"house_number\""));
+        map.put("road", LocalFileRetriever.retrieveMap("dataMap",this).get("\"road\""));
+        map.put("city", LocalFileRetriever.retrieveMap("dataMap",this).get("\"city\""));
+        map.put("country", LocalFileRetriever.retrieveMap("dataMap",this).get("\"country\""));
+        map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
+        map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
+        map.put("height", LocalFileRetriever.retrieveMap("dataMap",this).get("height"));
+        map.put("weight",LocalFileRetriever.retrieveMap("dataMap",this).get("weight"));
+        map.put("language", LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new"));
+        map.put("emergency_type", "Police");
 
         map.put("tts_true", "true");
         map.put("tts_content", null);

@@ -23,55 +23,50 @@ public class MainActivity extends AppCompatActivity {
         //Determine if the app is being opened for the first time
         SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
         boolean FirstTime = prefs.getBoolean("FirstTime", true);
-        
-        //Testing the filewriting
-        String filename = "myfile";
-        String fileContents = "Hello world!";
-        try (FileOutputStream fos = this.openFileOutput(filename, MODE_PRIVATE)) {
-            fos.write(fileContents.getBytes());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-
-        //Set up text map
-        Map<String, String> map = new HashMap<>();
-        map.put("word_fire", "Fire Department");
-        map.put("word_ems", "Emergency Medical Service");
-        map.put("word_police", "Police Department");
-        map.put("word_app_name", "Practice");
-        map.put("word_language", "Please select language");
-        map.put("word_next", "Next");
-        map.put("word_loc", "Sync Location Data");
-        map.put("word_hint_name", "Name (Joseph Smith)");
-        map.put("word_hint_gender", "Gender");
-        map.put("word_hint_age", "Age (19 yo)");
-        map.put("word_hint_height", "Height (5'9\")");
-        map.put("word_hint_weight", "Weight (170 lbs)");
-        map.put("word_prompt_info", "Tell us about yourself:");
-        map.put("word_lang_dir", "Edit Language");
-        map.put("word_info_dir", "My Info");
-        map.put("word_call_dir", "Media Call");
-        map.put("word_text_dir", "Silent SOS");
-        map.put("word_in_queue", "Waiting...");
-        map.put("word_out_queue", "Calling");
-        map.put("word_hangup", "End Call");
-        map.put("word_media_dir ", "Add Media");
-        map.put("word_add_text", "Add Text");
-        map.put("word_add_image", "Add Image");
-        map.put("word_media_hint", "Describe your emergency:");
-        map.put("word_text_id", "Your id is ");
-        UserData.wordmap = map;
-
-        //Set lang_old
-        UserData.lang_old="English";
-        UserData.lang_new="English";
 
         //If so then mark it as opened and start SetLang
         if (FirstTime) {
+            Map<String, String> dataMap = new HashMap<>();
+            Map<String, String> stringMap = new HashMap<>();
 
+            //Set up map of all the strings in the app view
+            stringMap.put("word_fire", "Fire Department");
+            stringMap.put("word_ems", "Emergency Medical Service");
+            stringMap.put("word_police", "Police Department");
+            stringMap.put("word_app_name", "Practice");
+            stringMap.put("word_language", "Please select language");
+            stringMap.put("word_next", "Next");
+            stringMap.put("word_loc", "Sync Location Data");
+            stringMap.put("word_hint_name", "Name (Joseph Smith)");
+            stringMap.put("word_hint_gender", "Gender");
+            stringMap.put("word_hint_age", "Age (19 yo)");
+            stringMap.put("word_hint_height", "Height (5'9\")");
+            stringMap.put("word_hint_weight", "Weight (170 lbs)");
+            stringMap.put("word_prompt_info", "Tell us about yourself:");
+            stringMap.put("word_lang_dir", "Edit Language");
+            stringMap.put("word_info_dir", "My Info");
+            stringMap.put("word_call_dir", "Media Call");
+            stringMap.put("word_text_dir", "Silent SOS");
+            stringMap.put("word_in_queue", "Waiting...");
+            stringMap.put("word_out_queue", "Calling");
+            stringMap.put("word_hangup", "End Call");
+            stringMap.put("word_media_dir ", "Add Media");
+            stringMap.put("word_add_text", "Add Text");
+            stringMap.put("word_add_image", "Add Image");
+            stringMap.put("word_media_hint", "Describe your emergency:");
+            stringMap.put("word_text_id", "Your id is ");
+            LocalFileRetriever.storeMap("stringMap", stringMap, this);
+
+            //Set the default language
+            stringMap.put("lang_old", "English");
+            stringMap.put("lang_new", "English");
+
+            //Set first time variable and store
+            dataMap.put("FirstTime","false");
+            LocalFileRetriever.storeMap("dataMap", dataMap,this);
+
+            //Starts up from the user settings
             Intent intent = new Intent(this, SetLang.class);
             startActivity(intent);
         }

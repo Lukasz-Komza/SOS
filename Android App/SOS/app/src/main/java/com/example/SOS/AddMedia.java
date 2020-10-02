@@ -55,7 +55,7 @@ public class AddMedia extends AppCompatActivity {
                 ((AddMedia) v.getContext()).dispatchTakePictureIntent();
             }
         });
-        imageButton.setText(UserData.wordmap.get("word_add_image"));
+        imageButton.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_add_image"));
 
         //Listen for the textbox
         EditText editText = (EditText) findViewById(R.id.message);
@@ -70,8 +70,8 @@ public class AddMedia extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     String message = v.getText().toString();
-                    if(!UserData.lang_new.equals("English")){
-                        String translated = LanguageTranslation.translate(message, "English", UserData.lang_new);
+                    if(!LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new").equals("English")){
+                        String translated = LanguageTranslation.translate(message, "English", LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new"));
                         v.setText(translated);
                     }
 
@@ -85,7 +85,7 @@ public class AddMedia extends AppCompatActivity {
                 return false;
             }
         });
-        editText.setHint(UserData.wordmap.get("word_media_hint"));
+        editText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_media_hint"));
 
         //get the spinner from the xml.
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -101,20 +101,20 @@ public class AddMedia extends AppCompatActivity {
         spinner.setOnItemSelectedListener(listener);
 
     }
-    public static void sendData(){
+    public void sendData(){
         Map<String, String> map = new HashMap<>();
-        map.put("lat", UserData.lat);
-        map.put("lon", UserData.lon);
-        map.put("house_number", UserData.locationMap.get("\"house_number\""));
-        map.put("road", UserData.locationMap.get("\"road\""));
-        map.put("city", UserData.locationMap.get("\"city\""));
-        map.put("country", UserData.locationMap.get("\"country\""));
-        map.put("name", UserData.name);
-        map.put("gender", UserData.gender);
-        map.put("height", UserData.height);
-        map.put("weight",UserData.weight);
-        map.put("language", UserData.lang_new);
-        map.put("emergency_type", UserData.emergency_type);
+        map.put("lat", LocalFileRetriever.retrieveMap("dataMap",this).get("lat"));
+        map.put("lon", LocalFileRetriever.retrieveMap("dataMap",this).get("lon"));
+        map.put("house_number", LocalFileRetriever.retrieveMap("dataMap",this).get("\"house_number\""));
+        map.put("road", LocalFileRetriever.retrieveMap("dataMap",this).get("\"road\""));
+        map.put("city", LocalFileRetriever.retrieveMap("dataMap",this).get("\"city\""));
+        map.put("country", LocalFileRetriever.retrieveMap("dataMap",this).get("\"country\""));
+        map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
+        map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
+        map.put("height", LocalFileRetriever.retrieveMap("dataMap",this).get("height"));
+        map.put("weight",LocalFileRetriever.retrieveMap("dataMap",this).get("weight"));
+        map.put("language", LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new"));
+        map.put("emergency_type", "Police");
 
         map.put("tts_true", "false");
         map.put("tts_content", null);
