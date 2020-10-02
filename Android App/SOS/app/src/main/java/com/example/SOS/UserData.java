@@ -1,4 +1,4 @@
-package com.example.practice;
+package com.example.SOS;
 
 import android.app.Activity;
 import android.content.Context;

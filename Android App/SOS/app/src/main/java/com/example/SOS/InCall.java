@@ -1,4 +1,4 @@
-package com.example.practice;
+package com.example.SOS;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;

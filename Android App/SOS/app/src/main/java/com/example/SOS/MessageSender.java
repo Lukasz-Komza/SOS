@@ -1,4 +1,4 @@
-package com.example.practice;
+package com.example.SOS;
 
 import android.graphics.Bitmap;
 import android.widget.TextView;
