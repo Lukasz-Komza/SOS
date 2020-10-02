@@ -7,6 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +23,18 @@ public class MainActivity extends AppCompatActivity {
         //Determine if the app is being opened for the first time
         SharedPreferences prefs = getSharedPreferences("UserSettings", MODE_PRIVATE);
         boolean FirstTime = prefs.getBoolean("FirstTime", true);
+        
+        //Testing the filewriting
+        String filename = "myfile";
+        String fileContents = "Hello world!";
+        try (FileOutputStream fos = this.openFileOutput(filename, MODE_PRIVATE)) {
+            fos.write(fileContents.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         //Set up text map
         Map<String, String> map = new HashMap<>();
