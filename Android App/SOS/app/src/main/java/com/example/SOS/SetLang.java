@@ -37,6 +37,7 @@ public class SetLang extends AppCompatActivity {
         //create a list of items for the spinner from the IBM language list
         Map<String, String> langMap = LanguageTranslation.getLanguages();
         String[] items = new String[langMap.size()];
+        items[0] = "";
         int i = 1;
         for (Map.Entry<String, String> entry : langMap.entrySet()) {
             if(entry.getKey().equals("English")){
