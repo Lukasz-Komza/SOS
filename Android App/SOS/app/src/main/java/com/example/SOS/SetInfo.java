@@ -39,6 +39,7 @@ import com.google.android.gms.fitness.FitnessOptions;
 import com.google.android.gms.fitness.data.DataPoint;
 import com.google.android.gms.fitness.data.DataSet;
 import com.google.android.gms.fitness.data.DataType;
+import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.request.DataReadRequest;
 import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.result.DataReadResponse;
@@ -55,6 +56,7 @@ import java.io.FileNotFoundException;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -68,6 +70,8 @@ import static java.text.DateFormat.getDateInstance;
 
 public class SetInfo extends AppCompatActivity {
 
+
+    private static final String TAG = "GoogleSignInPage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +100,7 @@ public class SetInfo extends AppCompatActivity {
                 //Hide the checkbox
                 view.setVisibility(View.GONE);
                 //Open the google sign in page
-                ((SetInfo) view.getContext()).signIn();
+                ((SetInfo) view.getContext()).googleFitSync();
             }
         } );
         Map<String, String> parseMap = LocalFileRetriever.retrieveMap("healthMap",this);
@@ -364,10 +368,43 @@ public class SetInfo extends AppCompatActivity {
         alert.show();
     }
 
-    public void signIn(){
-        //Start up the GoogleSignInPage
-        Intent intent = new Intent(this, GoogleSignInPage.class);
-        startActivity(intent);
+    public void googleFitSync(){
+        // Setting a start and end date using a range of 1 week before this moment.
+        Calendar cal = Calendar.getInstance();
+        Date now = new Date();
+        cal.setTime(now);
+        long endTime = cal.getTimeInMillis();
+        cal.add(Calendar.WEEK_OF_YEAR, -1);
+        long startTime = cal.getTimeInMillis();
+
+        //Log these dates, not sure why
+        java.text.DateFormat dateFormat = getDateInstance();
+        Log.i(TAG, "Range Start: " + dateFormat.format(startTime));
+        Log.i(TAG, "Range End: " + dateFormat.format(endTime));
+
+        //Create a request to read the data of the scopes we want
+        DataReadRequest readRequest =
+                new DataReadRequest.Builder()
+                        .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+                        .read(DataType.TYPE_WEIGHT)
+                        .build();
+
+        //read in the datasets from the time range we want
+        Task<DataReadResponse> response = Fitness
+                .getHistoryClient(this, GoogleSignIn.getAccountForScopes(this, Fitness.SCOPE_BODY_READ))
+                .readData(readRequest);
+        List<DataSet> dataSets = response.getResult().getDataSets();
+
+        //Parse through the datasets, store the data in memory
+        Map<String, String> healthMap = new HashMap<>();
+        for(DataSet ds : dataSets){
+            for(DataPoint dp: ds.getDataPoints()){
+                for (Field f : dp.getDataType().getFields()){
+                    healthMap.put(f.getName(), dp.getValue(f).toString());
+                }
+            }
+        }
+        LocalFileRetriever.storeMap("healthMap", healthMap,this);
     }
 
 }

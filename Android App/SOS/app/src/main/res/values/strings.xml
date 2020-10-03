@@ -1,6 +1,7 @@
 <resources name = "strings" type = "id">
     <!-- general -->
     <string name="app_name">SOS</string>
+    <string name="server_client_id">243882775627-dl607nct1ukp6g4lkgglo1f0kvcsbhre.apps.googleusercontent.com</string>
     <!-- set_lang -->
     <string name="language">Please select language</string>
     <!-- set_info -->
