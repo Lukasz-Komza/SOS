@@ -250,7 +250,7 @@ public class SetInfo extends AppCompatActivity {
                 ((SetInfo) v.getContext()).nextPage();
             }
         });
-        button.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_next"));
+        button.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_submit"));
     }
 
     public void nextPage() {

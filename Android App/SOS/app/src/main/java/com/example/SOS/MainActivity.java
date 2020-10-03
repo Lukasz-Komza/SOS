@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             stringMap.put("word_app_name", "Practice");
             stringMap.put("word_language", "Please select language");
             stringMap.put("word_next", "Next");
+            stringMap.put("word_submit", "Submit");
             stringMap.put("word_loc", "Sync Location Data");
             stringMap.put("word_hint_name", "Name (Joseph Smith)");
             stringMap.put("word_hint_gender", "Gender");
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             stringMap.put("word_hint_weight", "Weight (170 lbs)");
             stringMap.put("word_prompt_info", "Tell us about yourself:");
             stringMap.put("word_lang_dir", "Edit Language");
-            stringMap.put("word_info_dir", "My Info");
+            stringMap.put("word_info_dir", "Update Account");
             stringMap.put("word_call_dir", "Media Call");
             stringMap.put("word_text_dir", "Silent SOS");
             stringMap.put("word_in_queue", "Waiting...");
