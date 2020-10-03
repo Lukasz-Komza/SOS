@@ -62,7 +62,7 @@ public class SetInfo extends AppCompatActivity {
         StrictMode.setThreadPolicy(tp);
 
         //Create a checkbox object
-        CheckBox c1 = (CheckBox) findViewById(R.id.LocationBox);
+        CheckBox c1 = findViewById(R.id.LocationBox);
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +74,7 @@ public class SetInfo extends AppCompatActivity {
         c1.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
 
 
-        CheckBox c2 = (CheckBox) findViewById(R.id.HealthBox);
+        CheckBox c2 = findViewById(R.id.HealthBox);
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +95,6 @@ public class SetInfo extends AppCompatActivity {
         nameText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
                 //Check if they clicked the done button
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //If so then hide the keyboard
@@ -127,7 +126,6 @@ public class SetInfo extends AppCompatActivity {
         genderText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
                 //Check if they clicked the done button
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //If so then hide the keyboard
@@ -159,7 +157,6 @@ public class SetInfo extends AppCompatActivity {
         ageText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
                 //Check if they clicked the done button
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //If so then hide the keyboard
@@ -193,7 +190,6 @@ public class SetInfo extends AppCompatActivity {
         heightText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
                 //Check if they clicked the done button
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //If so then hide the keyboard
@@ -224,7 +220,6 @@ public class SetInfo extends AppCompatActivity {
         weightText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
                 //Check if they clicked the done button
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //If so then hide the keyboard

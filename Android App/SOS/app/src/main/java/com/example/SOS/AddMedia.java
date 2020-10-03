@@ -2,13 +2,16 @@ package com.example.SOS;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -53,6 +56,7 @@ public class AddMedia extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((AddMedia) v.getContext()).dispatchTakePictureIntent();
+                ((AddMedia) v.getContext()).createDialog();
             }
         });
         imageButton.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_add_image"));
@@ -86,14 +90,6 @@ public class AddMedia extends AppCompatActivity {
             }
         });
         editText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_media_hint"));
-
-        //get the spinner from the xml.
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        //create a list of items for the spinner from the IBM language list
-        String[] items = {"Police", "EMS", "Fire"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
 
         //TODO create buttons with emergencies
 
@@ -154,5 +150,31 @@ public class AddMedia extends AppCompatActivity {
         }catch(Exception e){
             return -1;
         }
+    }
+    public void createDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Title");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //m_Text = input.getText().toString();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 }
