@@ -60,17 +60,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SetInfo extends AppCompatActivity {
+import static com.google.common.base.Strings.isNullOrEmpty;
 
-    private final Executor executor = new Executor() {
-        @Override
-        public void execute(Runnable runnable) {
-            new Thread(runnable).start();
-        }
-    };
-    private static boolean shareLocation = false;
-    private static boolean shareHealth = false;
-    private FusedLocationProviderClient fusedLocationClient;
+public class SetInfo extends AppCompatActivity {
 
 
     @Override
@@ -85,7 +77,7 @@ public class SetInfo extends AppCompatActivity {
             public void onClick(View view) {
                 // Is the view now checked?
                 boolean checked = ((CheckBox) view).isChecked();
-                SetInfo.shareLocation = checked;
+                LocalFileRetriever.storeToMap("dataMap", "share_loc",Boolean.toString(checked), view.getContext());
             }
         } );
         c1.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
@@ -107,7 +99,7 @@ public class SetInfo extends AppCompatActivity {
                     LocalFileRetriever.storeToMap("dataMap", "name", v.getText().toString(), v.getContext());
 
                     //Set the background to dark
-                    v.setBackground(Drawable.createFromPath("@drawable/text_boxless_dark"));
+                    v.setBackgroundResource(R.drawable.text_boxless_dark);
                     return true;
                 }
                 return false;
@@ -115,6 +107,14 @@ public class SetInfo extends AppCompatActivity {
             }
         });
         nameText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_name"));
+        //Set the content if the user has already filled this field out
+        String text = LocalFileRetriever.retrieveMap("dataMap", this).get("name");
+        if(!isNullOrEmpty(text)){
+            nameText.setText(text);
+            nameText.setBackgroundResource(R.drawable.text_boxless_dark);
+        }
+
+
         //Create EditText object to accept user input
         EditText genderText = (EditText) findViewById(R.id.genderText);
         genderText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -131,7 +131,7 @@ public class SetInfo extends AppCompatActivity {
                     LocalFileRetriever.storeToMap("dataMap", "gender", v.getText().toString(), v.getContext());
 
                     //Set the background to dark
-                    v.setBackground(Drawable.createFromPath("@drawable/text_boxless_dark"));
+                    v.setBackgroundResource(R.drawable.text_boxless_dark);
                     return true;
                 }
                 return false;
@@ -139,6 +139,14 @@ public class SetInfo extends AppCompatActivity {
             }
         });
         genderText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_gender"));
+        //Set the content if the user has already filled this field out
+        text = LocalFileRetriever.retrieveMap("dataMap", this).get("gender");
+        if(!isNullOrEmpty(text)){
+            genderText.setText(text);
+            genderText.setBackgroundResource(R.drawable.text_boxless_dark);
+        }
+
+
         //Create EditText object to accept user input
         EditText ageText = (EditText) findViewById(R.id.ageText);
         ageText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -155,7 +163,7 @@ public class SetInfo extends AppCompatActivity {
                     LocalFileRetriever.storeToMap("dataMap", "age", v.getText().toString(), v.getContext());
 
                     //Set the background to dark
-                    v.setBackground(Drawable.createFromPath("@drawable/text_boxless_dark"));
+                    v.setBackgroundResource(R.drawable.text_boxless_dark);
                     return true;
                 }
                 return false;
@@ -163,6 +171,14 @@ public class SetInfo extends AppCompatActivity {
             }
         });
         ageText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_age"));
+        //Set the content if the user has already filled this field out
+        text = LocalFileRetriever.retrieveMap("dataMap", this).get("age");
+        if(!isNullOrEmpty(text)){
+            ageText.setText(text);
+            ageText.setBackgroundResource(R.drawable.text_boxless_dark);
+        }
+
+
         //Create EditText object to accept user input
         EditText heightText = (EditText) findViewById(R.id.heightText);
         heightText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -179,7 +195,7 @@ public class SetInfo extends AppCompatActivity {
                     LocalFileRetriever.storeToMap("dataMap", "height", v.getText().toString(), v.getContext());
 
                     //Set the background to dark
-                    v.setBackground(Drawable.createFromPath("drawable/text_boxless_dark.xml"));
+                    v.setBackgroundResource(R.drawable.text_boxless_dark);
                     return true;
                 }
                 return false;
@@ -187,6 +203,14 @@ public class SetInfo extends AppCompatActivity {
             }
         });
         heightText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_height"));
+        //Set the content if the user has already filled this field out
+        text = LocalFileRetriever.retrieveMap("dataMap", this).get("height");
+        if(!isNullOrEmpty(text)){
+            heightText.setText(text);
+            heightText.setBackgroundResource(R.drawable.text_boxless_dark);
+        }
+
+
         //Create EditText object to accept user input
         EditText weightText = (EditText) findViewById(R.id.weightText);
         weightText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -203,7 +227,7 @@ public class SetInfo extends AppCompatActivity {
                     LocalFileRetriever.storeToMap("dataMap", "weight", v.getText().toString(), v.getContext());
 
                     //Set the background to dark
-                    v.setBackground(Drawable.createFromPath("@drawable/text_boxless_dark"));
+                    v.setBackgroundResource(R.drawable.text_boxless_dark);
                     return true;
                 }
                 return false;
@@ -211,6 +235,14 @@ public class SetInfo extends AppCompatActivity {
             }
         });
         weightText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_weight"));
+        //Set the content if the user has already filled this field out
+        text = LocalFileRetriever.retrieveMap("dataMap", this).get("weight");
+        if(!isNullOrEmpty(text)){
+            weightText.setText(text);
+            weightText.setBackgroundResource(R.drawable.text_boxless_dark);
+        }
+
+
         //Calls nextPage() on button click
         final Button button = findViewById(R.id.NextButton2);
         button.setOnClickListener(new View.OnClickListener() {
@@ -223,10 +255,10 @@ public class SetInfo extends AppCompatActivity {
 
     public void nextPage() {
         //Enables location
-        if (shareLocation) {
+        if (!isNullOrEmpty(LocalFileRetriever.retrieveMap("dataMap",this).get("share_loc")) && LocalFileRetriever.retrieveMap("dataMap",this).get("share_loc").equals("true")) {
             statusCheck();
             //A client which can be used to get the location
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
             //Check if the permissions are now appropriate
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 //Creates a client which can fetch location
