@@ -18,6 +18,7 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 public class MainActivity extends AppCompatActivity {
     public static String sha_1 = "32:68:FF:23:7D:D4:2B:5C:96:53:43:34:AE:8F:93:C1:F1:9E:DF:0D";
     public static String client_secret = "ySwKNIuWMCi838Qlh-lW0drP";
+    public static String oAuth_client = "243882775627-2c0jg72k72lffr2nj56gfvqp3n7vsk2l.apps.googleusercontent.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Determine if the app is being opened for the first time
         boolean FirstTime = isNullOrEmpty(LocalFileRetriever.retrieveMap("dataMap",this).get("FirstTime"));
-
 
         //If so then mark it as opened and start SetLang
         if (FirstTime) {
@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
             LocalFileRetriever.storeMap("stringMap", stringMap, this);
 
             //Set the default language
-            stringMap.put("lang_old", "English");
-            stringMap.put("lang_new", "English");
+            dataMap.put("lang_old", "English");
+            dataMap.put("lang_new", "English");
 
             //Set first time variable and store
             dataMap.put("FirstTime","false");

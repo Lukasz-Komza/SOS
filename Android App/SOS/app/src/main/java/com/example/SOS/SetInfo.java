@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -60,7 +61,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -71,12 +75,15 @@ import static java.text.DateFormat.getDateInstance;
 public class SetInfo extends AppCompatActivity {
 
 
-    private static final String TAG = "GoogleSignInPage";
+    private static final String TAG = "SetInfo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_info);
+
+        StrictMode.ThreadPolicy tp = StrictMode.ThreadPolicy.LAX;
+        StrictMode.setThreadPolicy(tp);
 
         //Create a checkbox object
         CheckBox c1 = (CheckBox) findViewById(R.id.LocationBox);
@@ -100,7 +107,8 @@ public class SetInfo extends AppCompatActivity {
                 //Hide the checkbox
                 view.setVisibility(View.GONE);
                 //Open the google sign in page
-                ((SetInfo) view.getContext()).googleFitSync();
+                Intent intent = new Intent(view.getContext(), GoogleSignInPage.class);
+                startActivity(intent);
             }
         } );
         Map<String, String> parseMap = LocalFileRetriever.retrieveMap("healthMap",this);
@@ -109,6 +117,10 @@ public class SetInfo extends AppCompatActivity {
             for(Map.Entry<String, String> entry : parseMap.entrySet()){
                 s = s + entry.getValue();
             }
+            s = s + "success";
+        }
+        else{
+            c2.setVisibility(View.GONE);
         }
         c2.setText(s);
         //c2.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
@@ -393,7 +405,15 @@ public class SetInfo extends AppCompatActivity {
         Task<DataReadResponse> response = Fitness
                 .getHistoryClient(this, GoogleSignIn.getAccountForScopes(this, Fitness.SCOPE_BODY_READ))
                 .readData(readRequest);
-        List<DataSet> dataSets = response.getResult().getDataSets();
+        DataReadResponse readDataResponse = null;
+        try {
+            readDataResponse = Tasks.await(response);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        List<DataSet> dataSets = readDataResponse.getDataSets();
 
         //Parse through the datasets, store the data in memory
         Map<String, String> healthMap = new HashMap<>();

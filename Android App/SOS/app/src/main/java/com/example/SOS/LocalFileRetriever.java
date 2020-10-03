@@ -74,6 +74,9 @@ public class LocalFileRetriever {
     }
     public static void storeToMap(String filename, String key, String value, Context context){
         Map<String,String> map = retrieveMap(filename,context);
+        if(map == null){
+            map = new HashMap<>();
+        }
         map.put(key, value);
         storeMap(filename,map,context);
     }

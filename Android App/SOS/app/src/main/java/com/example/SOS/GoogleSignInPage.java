@@ -29,6 +29,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import static java.text.DateFormat.getDateInstance;
@@ -37,6 +39,7 @@ public class GoogleSignInPage extends AppCompatActivity {
     private static final int RC_SIGN_IN = 4290;
     private static final String TAG = "GoogleSignInPage";
     private GoogleSignInClient gsic;
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +82,8 @@ public class GoogleSignInPage extends AppCompatActivity {
         }
         else{
             //Get google fit data
-            googleFitSync(account);
+            //Needs to be run asynchronously
+            FitnessRetriever.googleFitAsync(executorService,this);
 
             //Start up the SetInfo
             Intent intent = new Intent(this, SetInfo.class);
@@ -120,42 +124,4 @@ public class GoogleSignInPage extends AppCompatActivity {
         }
     }
 
-    public void googleFitSync(GoogleSignInAccount account){
-        // Setting a start and end date using a range of 1 week before this moment.
-        Calendar cal = Calendar.getInstance();
-        Date now = new Date();
-        cal.setTime(now);
-        long endTime = cal.getTimeInMillis();
-        cal.add(Calendar.WEEK_OF_YEAR, -1);
-        long startTime = cal.getTimeInMillis();
-
-        //Log these dates, not sure why
-        java.text.DateFormat dateFormat = getDateInstance();
-        Log.i(TAG, "Range Start: " + dateFormat.format(startTime));
-        Log.i(TAG, "Range End: " + dateFormat.format(endTime));
-
-        //Create a request to read the data of the scopes we want
-        DataReadRequest readRequest =
-                new DataReadRequest.Builder()
-                        .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-                        .read(DataType.TYPE_WEIGHT)
-                        .build();
-
-        //read in the datasets from the time range we want
-        Task<DataReadResponse> response = Fitness
-                .getHistoryClient(this, account)
-                .readData(readRequest);
-        List<DataSet> dataSets = response.getResult().getDataSets();
-
-        //Parse through the datasets, store the data in memory
-        Map<String, String> healthMap = new HashMap<>();
-        for(DataSet ds : dataSets){
-            for(DataPoint dp: ds.getDataPoints()){
-                for (Field f : dp.getDataType().getFields()){
-                    healthMap.put(f.getName(), dp.getValue(f).toString());
-                }
-            }
-        }
-        LocalFileRetriever.storeMap("healthMap", healthMap,this);
-    }
 }
