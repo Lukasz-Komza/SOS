@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -71,13 +72,6 @@ public class SetInfo extends AppCompatActivity {
     private static boolean shareHealth = false;
     private FusedLocationProviderClient fusedLocationClient;
 
-    private static String name;
-    private static String gender;
-    private static String age;
-    private static String height;
-    private static String weight;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +106,8 @@ public class SetInfo extends AppCompatActivity {
                     //Get the text they entered and store it as name
                     LocalFileRetriever.storeToMap("dataMap", "name", v.getText().toString(), v.getContext());
 
-                    //Set the text in the box to nothing
-                    v.setText("");
+                    //Set the background to dark
+                    v.setBackground(Drawable.createFromPath("@drawable/text_boxless_dark"));
                     return true;
                 }
                 return false;
@@ -136,8 +130,8 @@ public class SetInfo extends AppCompatActivity {
                     //Get the text they entered and store it as gender
                     LocalFileRetriever.storeToMap("dataMap", "gender", v.getText().toString(), v.getContext());
 
-                    //Set the text in the box to nothing
-                    v.setText("");
+                    //Set the background to dark
+                    v.setBackground(Drawable.createFromPath("@drawable/text_boxless_dark"));
                     return true;
                 }
                 return false;
@@ -160,8 +154,8 @@ public class SetInfo extends AppCompatActivity {
                     //Get the text they entered and store it as name
                     LocalFileRetriever.storeToMap("dataMap", "age", v.getText().toString(), v.getContext());
 
-                    //Set the text in the box to nothing
-                    v.setText("");
+                    //Set the background to dark
+                    v.setBackground(Drawable.createFromPath("@drawable/text_boxless_dark"));
                     return true;
                 }
                 return false;
@@ -183,8 +177,9 @@ public class SetInfo extends AppCompatActivity {
 
                     //Get the text they entered and store it as name
                     LocalFileRetriever.storeToMap("dataMap", "height", v.getText().toString(), v.getContext());
-                    //Set the text in the box to nothing
-                    v.setText("");
+
+                    //Set the background to dark
+                    v.setBackground(Drawable.createFromPath("drawable/text_boxless_dark.xml"));
                     return true;
                 }
                 return false;
@@ -207,8 +202,8 @@ public class SetInfo extends AppCompatActivity {
                     //Get the text they entered and store it as name
                     LocalFileRetriever.storeToMap("dataMap", "weight", v.getText().toString(), v.getContext());
 
-                    //Set the text in the box to nothing
-                    v.setText("");
+                    //Set the background to dark
+                    v.setBackground(Drawable.createFromPath("@drawable/text_boxless_dark"));
                     return true;
                 }
                 return false;
