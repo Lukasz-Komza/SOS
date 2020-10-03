@@ -87,7 +87,10 @@ public class SetInfo extends AppCompatActivity {
                 startActivity(intent);
             }
         } );
-        c2.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
+        if(LocalFileRetriever.retrieveMap("healthMap",this) != null && LocalFileRetriever.retrieveMap("healthMap",this).get("synced") != null){
+            c2.setVisibility(View.GONE);
+        }
+        c2.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_health"));
 
 
         //Create EditText object to accept user input
@@ -244,9 +247,9 @@ public class SetInfo extends AppCompatActivity {
         });
         weightText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_weight"));
         //Set the content if the user has already filled this field out
-        if(healthMap != null && healthMap.get("height") != null){
-            heightText.setText(healthMap.get("height"));
-            heightText.setBackgroundResource(R.drawable.text_boxless_dark);
+        if(healthMap != null && healthMap.get("weight") != null){
+            weightText.setText(healthMap.get("weight"));
+            weightText.setBackgroundResource(R.drawable.text_boxless_dark);
         }
 
 

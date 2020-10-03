@@ -49,7 +49,7 @@ public class FitnessRetriever{
         Date now = new Date();
         cal.setTime(now);
         long endTime = cal.getTimeInMillis();
-        cal.add(Calendar.WEEK_OF_YEAR, -1);
+        cal.add(Calendar.YEAR, -10);
         long startTime = cal.getTimeInMillis();
 
         //Log these dates, not sure why
@@ -79,7 +79,13 @@ public class FitnessRetriever{
         List<DataSet> dataSets = readDataResponse.getDataSets();
 
         //Parse through the datasets, store the data in memory
-        Map<String, String> healthMap = new HashMap<>();
+        Map<String, String> healthMap = LocalFileRetriever.retrieveMap("healthMap",context);
+        if(healthMap == null){
+            healthMap = new HashMap<>();
+        }
+        //Checking if healthMap updated from syncing or from user entry
+        healthMap.put("synced", "true");
+
         for(DataSet ds : dataSets){
             for(DataPoint dp: ds.getDataPoints()){
                 for (Field f : dp.getDataType().getFields()){
