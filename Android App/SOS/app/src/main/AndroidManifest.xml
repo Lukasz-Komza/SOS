@@ -25,6 +25,7 @@
         <activity android:name=".InCall" />
         <activity android:name=".AddMedia"
             android:exported="true"/>
+        <activity android:name=".GoogleSignInPage"/>
     </application>
 
     <!-- Location Permissions -->
