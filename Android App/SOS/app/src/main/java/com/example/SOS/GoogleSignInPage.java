@@ -1,9 +1,7 @@
 package com.example.SOS;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,25 +13,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.fitness.Fitness;
-import com.google.android.gms.fitness.data.DataPoint;
-import com.google.android.gms.fitness.data.DataSet;
 import com.google.android.gms.fitness.data.DataType;
-import com.google.android.gms.fitness.data.Field;
-import com.google.android.gms.fitness.request.DataReadRequest;
-import com.google.android.gms.fitness.result.DataReadResponse;
 import com.google.android.gms.tasks.Task;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
-import static java.text.DateFormat.getDateInstance;
 
 public class GoogleSignInPage extends AppCompatActivity {
     private static final int RC_SIGN_IN = 4290;
@@ -83,7 +67,8 @@ public class GoogleSignInPage extends AppCompatActivity {
         else{
             //Get google fit data
             //Needs to be run asynchronously
-            FitnessRetriever.googleFitAsync(executorService,this);
+            FitnessRetriever.googleFitAsync(executorService,this, DataType.TYPE_WEIGHT, "weight");
+            FitnessRetriever.googleFitAsync(executorService,this, DataType.TYPE_HEIGHT, "height");
 
             //Start up the SetInfo
             Intent intent = new Intent(this, SetInfo.class);

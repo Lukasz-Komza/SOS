@@ -34,16 +34,16 @@ import static java.text.DateFormat.getDateInstance;
 public class FitnessRetriever{
     private static final String TAG = "FitnessFragment";
 
-    public static void googleFitAsync(Executor executor, final Context context){
+    public static void googleFitAsync(Executor executor, final Context context, final DataType dt, final String key){
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                googleFitSync(context);
+                googleFitSync(context, dt, key);
             }
         });
     }
 
-    private static void googleFitSync(Context context){
+    private static void googleFitSync(Context context, DataType dt, String key){
         // Setting a start and end date using a range of 1 week before this moment.
         Calendar cal = Calendar.getInstance();
         Date now = new Date();
@@ -61,7 +61,7 @@ public class FitnessRetriever{
         DataReadRequest readRequest =
                 new DataReadRequest.Builder()
                         .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-                        .read(DataType.TYPE_WEIGHT)
+                        .read(dt)
                         .build();
 
         //read in the datasets from the time range we want
@@ -83,7 +83,7 @@ public class FitnessRetriever{
         for(DataSet ds : dataSets){
             for(DataPoint dp: ds.getDataPoints()){
                 for (Field f : dp.getDataType().getFields()){
-                    healthMap.put(f.getName(), dp.getValue(f).toString());
+                    healthMap.put(key, dp.getValue(f).toString());
                 }
             }
         }

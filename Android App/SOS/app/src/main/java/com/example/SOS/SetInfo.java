@@ -1,21 +1,16 @@
 package com.example.SOS;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -29,45 +24,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.fitness.Fitness;
-import com.google.android.gms.fitness.FitnessOptions;
 import com.google.android.gms.fitness.data.DataPoint;
 import com.google.android.gms.fitness.data.DataSet;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.request.DataReadRequest;
-import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.gms.fitness.result.DataReadResponse;
-import com.google.android.gms.fitness.result.DataReadResult;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static java.text.DateFormat.getDateInstance;
@@ -111,19 +87,7 @@ public class SetInfo extends AppCompatActivity {
                 startActivity(intent);
             }
         } );
-        Map<String, String> parseMap = LocalFileRetriever.retrieveMap("healthMap",this);
-        String s = "";
-        if(parseMap != null){
-            for(Map.Entry<String, String> entry : parseMap.entrySet()){
-                s = s + entry.getValue();
-            }
-            s = s + "success";
-        }
-        else{
-            c2.setVisibility(View.GONE);
-        }
-        c2.setText(s);
-        //c2.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
+        c2.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
 
 
         //Create EditText object to accept user input
@@ -221,6 +185,8 @@ public class SetInfo extends AppCompatActivity {
             ageText.setBackgroundResource(R.drawable.text_boxless_dark);
         }
 
+        //Set up the map for the following data points
+        Map<String, String> healthMap = LocalFileRetriever.retrieveMap("healthMap",this);
 
         //Create EditText object to accept user input
         EditText heightText = (EditText) findViewById(R.id.heightText);
@@ -235,7 +201,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    LocalFileRetriever.storeToMap("dataMap", "height", v.getText().toString(), v.getContext());
+                    LocalFileRetriever.storeToMap("healthMap", "height", v.getText().toString(), v.getContext());
 
                     //Set the background to dark
                     v.setBackgroundResource(R.drawable.text_boxless_dark);
@@ -247,9 +213,8 @@ public class SetInfo extends AppCompatActivity {
         });
         heightText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_height"));
         //Set the content if the user has already filled this field out
-        text = LocalFileRetriever.retrieveMap("dataMap", this).get("height");
-        if(!isNullOrEmpty(text)){
-            heightText.setText(text);
+        if(healthMap != null && healthMap.get("height") != null){
+            heightText.setText(healthMap.get("height"));
             heightText.setBackgroundResource(R.drawable.text_boxless_dark);
         }
 
@@ -267,7 +232,7 @@ public class SetInfo extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                     //Get the text they entered and store it as name
-                    LocalFileRetriever.storeToMap("dataMap", "weight", v.getText().toString(), v.getContext());
+                    LocalFileRetriever.storeToMap("healthMap", "weight", v.getText().toString(), v.getContext());
 
                     //Set the background to dark
                     v.setBackgroundResource(R.drawable.text_boxless_dark);
@@ -279,10 +244,9 @@ public class SetInfo extends AppCompatActivity {
         });
         weightText.setHint(LocalFileRetriever.retrieveMap("stringMap",this).get("word_hint_weight"));
         //Set the content if the user has already filled this field out
-        text = LocalFileRetriever.retrieveMap("dataMap", this).get("weight");
-        if(!isNullOrEmpty(text)){
-            weightText.setText(text);
-            weightText.setBackgroundResource(R.drawable.text_boxless_dark);
+        if(healthMap != null && healthMap.get("height") != null){
+            heightText.setText(healthMap.get("height"));
+            heightText.setBackgroundResource(R.drawable.text_boxless_dark);
         }
 
 
