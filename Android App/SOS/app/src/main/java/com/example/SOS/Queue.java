@@ -16,8 +16,8 @@ public class Queue extends AppCompatActivity {
         setContentView(R.layout.queue);
 
         //Determines the information sent from intent
-        Intent iin= getIntent();
-        Bundle b = iin.getExtras();
+        Intent in= getIntent();
+        Bundle b = in.getExtras();
 
         if(b!=null)
         {

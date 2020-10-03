@@ -34,7 +34,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
-            android:background="@drawable/rounded_textbox"
+            android:background="@drawable/text_boxless"
             android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
         <EditText
@@ -42,7 +42,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
-            android:background="@drawable/rounded_textbox"
+            android:background="@drawable/text_boxless"
             android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
         <EditText
@@ -50,7 +50,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
-            android:background="@drawable/rounded_textbox"
+            android:background="@drawable/text_boxless"
             android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
         <EditText
@@ -58,7 +58,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
-            android:background="@drawable/rounded_textbox"
+            android:background="@drawable/text_boxless"
             android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
         <EditText
@@ -66,7 +66,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:inputType="textCapSentences|textAutoCorrect"
-            android:background="@drawable/rounded_textbox"
+            android:background="@drawable/text_boxless"
             android:layout_margin="10dp"
             android:imeOptions="actionDone"/>
         <LinearLayout
