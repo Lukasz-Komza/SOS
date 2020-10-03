@@ -16,6 +16,9 @@ import java.util.Map;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class MainActivity extends AppCompatActivity {
+    public static String sha_1 = "32:68:FF:23:7D:D4:2B:5C:96:53:43:34:AE:8F:93:C1:F1:9E:DF:0D";
+    public static String client_id = "243882775627-dl607nct1ukp6g4lkgglo1f0kvcsbhre.apps.googleusercontent.com";
+    public static String client_secret = "ySwKNIuWMCi838Qlh-lW0drP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

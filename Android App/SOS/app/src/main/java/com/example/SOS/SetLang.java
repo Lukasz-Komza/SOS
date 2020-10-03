@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class SetLang extends AppCompatActivity {
-    public static String lang_new = "32:68:FF:23:7D:D4:2B:5C:96:53:43:34:AE:8F:93:C1:F1:9E:DF:0D";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
