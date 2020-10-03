@@ -17,6 +17,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -53,6 +54,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.Executor;
@@ -61,6 +64,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static java.text.DateFormat.getDateInstance;
 
 public class SetInfo extends AppCompatActivity {
 
@@ -81,6 +85,29 @@ public class SetInfo extends AppCompatActivity {
             }
         } );
         c1.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
+
+
+        CheckBox c2 = (CheckBox) findViewById(R.id.HealthBox);
+        c2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Store that it is checked
+                LocalFileRetriever.storeToMap("dataMap", "share_health","true", view.getContext());
+                //Hide the checkbox
+                view.setVisibility(View.GONE);
+                //Open the google sign in page
+                ((SetInfo) view.getContext()).signIn();
+            }
+        } );
+        Map<String, String> parseMap = LocalFileRetriever.retrieveMap("healthMap",this);
+        String s = "";
+        if(parseMap != null){
+            for(Map.Entry<String, String> entry : parseMap.entrySet()){
+                s = s + entry.getValue();
+            }
+        }
+        c2.setText(s);
+        //c2.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
 
 
         //Create EditText object to accept user input
@@ -277,7 +304,6 @@ public class SetInfo extends AppCompatActivity {
             }
         }
 
-
         //Goes to the menu page
         Intent intent = new Intent(this, Menu.class);
         startActivity(intent);
@@ -336,6 +362,12 @@ public class SetInfo extends AppCompatActivity {
                 });
         final AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void signIn(){
+        //Start up the GoogleSignInPage
+        Intent intent = new Intent(this, GoogleSignInPage.class);
+        startActivity(intent);
     }
 
 }

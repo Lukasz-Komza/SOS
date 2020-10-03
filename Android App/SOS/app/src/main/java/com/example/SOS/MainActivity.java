@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             stringMap.put("word_next", "Next");
             stringMap.put("word_submit", "Submit");
             stringMap.put("word_loc", "Sync Location Data");
+            stringMap.put("word_health", "Sync Google Fit Data");
             stringMap.put("word_hint_name", "Name (Joseph Smith)");
             stringMap.put("word_hint_gender", "Gender");
             stringMap.put("word_hint_age", "Age (19 yo)");
