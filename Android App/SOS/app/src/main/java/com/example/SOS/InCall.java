@@ -26,6 +26,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.ByteArrayInputStream;
@@ -224,7 +225,22 @@ public class InCall extends AppCompatActivity {
 
             String encodedPath = file.getAbsolutePath();
             Bitmap bitmap = BitmapFactory.decodeFile(encodedPath);
-            createDialog(bitmap);
+            String text = createDialog(bitmap);
+
+            //Add the image to a scrolling image view
+            ImageView myImage = new ImageView(this);
+            myImage.setImageBitmap(bitmap);
+            myImage.setRotation(90);
+            myImage.setAdjustViewBounds(true);
+            myImage.setPadding(150,20,20,150);
+
+            //Add the text to scrolling text view
+            TextView myText = new TextView(this);
+            myText.setText(text);
+
+            LinearLayout picLL = findViewById(R.id.image_scroll);
+            picLL.addView(myImage);
+            picLL.addView(myText);
         }
     }
     private File createImageFile() throws IOException {
@@ -257,7 +273,7 @@ public class InCall extends AppCompatActivity {
             return -1;
         }
     }
-    public void createDialog(Bitmap bmp){
+    public String createDialog(Bitmap bmp){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(LocalFileRetriever.retrieveMap("stringMap",this).get("description_text"));
 
@@ -283,5 +299,7 @@ public class InCall extends AppCompatActivity {
         });
 
         builder.show();
+
+        return input.getText();
     }
 }

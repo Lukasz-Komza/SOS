@@ -4,88 +4,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InCall">
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ScrollView android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:fadingEdge="none">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-            <TextView
-                android:id="@+id/idView"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"/>
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/idView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerVertical="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-            <EditText
-                android:id="@+id/call_message"
-                android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                android:inputType="textCapSentences|textAutoCorrect"
-                android:background="@drawable/rounded_textbox"
-                android:layout_margin="10dp"
-                android:imeOptions="actionDone"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.5" />
-            <Button
-                android:id="@+id/call_addImage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_button"
-                android:layout_margin="10dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
-            <Button
-                android:id="@+id/fire"
+            android:orientation="vertical"
+            android:layout_centerVertical="true">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_button"
-                android:layout_margin="10dp"/>
-
-            <Button
-                android:id="@+id/ems"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <EditText
+                    android:id="@+id/call_message"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:background="@drawable/rounded_textbox"
+                    android:layout_margin="10dp"
+                    android:imeOptions="actionDone"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_button"
-                android:layout_margin="10dp"/>
-
-            <Button
-                android:id="@+id/police"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5" />
+                <Button
+                    android:id="@+id/call_addImage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:layout_margin="10dp"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_button"
-                android:layout_margin="10dp"/>
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <Button
+                    android:id="@+id/fire"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:layout_margin="10dp"/>
+
+                <Button
+                    android:id="@+id/ems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:layout_margin="10dp"/>
+
+                <Button
+                    android:id="@+id/police"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button"
+                    android:layout_margin="10dp"/>
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 </android.widget.RelativeLayout>
