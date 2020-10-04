@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             stringMap.put("word_add_image", "Add Image");
             stringMap.put("word_media_hint", "Describe your emergency:");
             stringMap.put("word_text_id", "Your id is ");
+            stringMap.put("description_text", "Add a Description");
             LocalFileRetriever.storeMap("stringMap", stringMap, this);
 
             //Set the default language

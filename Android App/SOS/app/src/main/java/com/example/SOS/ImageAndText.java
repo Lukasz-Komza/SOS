@@ -31,8 +31,8 @@ public class ImageAndText extends RelativeLayout {
     private void init(Context context) {
         rootView = inflate(context, R.layout.image_and_text, this);
 
-        et = new EditText(context);
-        iv = new ImageView(context);
+        et = rootView.findViewById(R.id.description_text);
+        iv = rootView.findViewById(R.id.phone_image);
 
         et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -60,6 +60,7 @@ public class ImageAndText extends RelativeLayout {
     }
     public void setImageBitMap(Bitmap bitMap){
         iv.setImageBitmap(bitMap);
+        iv.setRotation(90);
         bmp = bitMap;
     }
 }
