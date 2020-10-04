@@ -64,6 +64,8 @@ public class AddMedia extends AppCompatActivity implements Scrollable{
         String dirPath = "/Media/";
         MessageSender.setDirPath(dirPath);
 
+        sendData();
+
         //Listen for the add image button
         final Button imageButton = findViewById(R.id.addImage);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +80,6 @@ public class AddMedia extends AppCompatActivity implements Scrollable{
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
                 //Check if they clicked the done button
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //If so then hide the keyboard
@@ -109,13 +110,22 @@ public class AddMedia extends AppCompatActivity implements Scrollable{
 
     }
     public void sendData(){
+        String s;
         Map<String, String> map = new HashMap<>();
         map.put("lat", LocalFileRetriever.retrieveMap("dataMap",this).get("lat"));
         map.put("lon", LocalFileRetriever.retrieveMap("dataMap",this).get("lon"));
-        map.put("house_number", LocalFileRetriever.retrieveMap("locMap",this).get("\"house_number\""));
-        map.put("road", LocalFileRetriever.retrieveMap("locMap",this).get("\"road\""));
-        map.put("city", LocalFileRetriever.retrieveMap("locMap",this).get("\"city\""));
-        map.put("country", LocalFileRetriever.retrieveMap("locMap",this).get("\"country\""));
+        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"house_number\"");
+        s = s.substring(1,s.length()-1);
+        map.put("house_number", s);
+        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"road\"");
+        s = s.substring(1,s.length()-1);
+        map.put("road", s);
+        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"city\"");
+        s = s.substring(1,s.length()-1);
+        map.put("city", s);
+        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"country\"");
+        s = s.substring(1,s.length()-1);
+        map.put("country", s);
         map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
         map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
         map.put("height", LocalFileRetriever.retrieveMap("healthMap",this).get("height"));
@@ -123,8 +133,7 @@ public class AddMedia extends AppCompatActivity implements Scrollable{
         map.put("language", LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new"));
         map.put("emergency_type", "Police");
 
-        map.put("tts_true", "false");
-        map.put("tts_content", null);
+        map.put("tts_true", "true");
 
         MessageSender.sendData(map);
 

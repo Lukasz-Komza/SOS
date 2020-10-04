@@ -26,10 +26,10 @@ public class MessageSender {
                 "\t\"Location\": {\n" +
                 "\t\t\"lat\": \"" + map.get("lat") + "\",\n" +
                 "\t\t\"lon\": \"" + map.get("lon") + "\",\n" +
-                "\t\t\"house_number\": " + map.get("house_number") + ",\n" +
-                "\t\t\"road\": " + map.get("road") + ",\n" +
-                "\t\t\"city\": " + map.get("city") + ",\n" +
-                "\t\t\"country\": " + map.get("country") + "\n" +
+                "\t\t\"house_number\": \"" + map.get("house_number") + "\",\n" +
+                "\t\t\"road\": \"" + map.get("road") + "\",\n" +
+                "\t\t\"city\": \"" + map.get("city") + "\",\n" +
+                "\t\t\"country\": \"" + map.get("country") + "\"\n" +
                 "\t},\n" +
                 "\t\"User\": {\n" +
                 "\t\t\"name\": \"" + map.get("name") + "\",\n" +
@@ -39,10 +39,10 @@ public class MessageSender {
                 "\t\t\"language\":\"" + map.get("language") + "\"\n" +
                 "\t},\n" +
                 "\t\"Emergency\":\"" + map.get("emergency_type") + "\",\n" +
-                "\t\"tts_true\":\"" + map.get("tts_type") + "\",\n" +
-                "\t\"tts_content\":\"" + map.get("tts_content") + "\"\n" +
+                "\t\"tts_true\":\"" + map.get("tts_true") + "\"\n" +
                 "}\n" +
                 "\t\t";
+        System.out.println(message);
         InputStream is = new ByteArrayInputStream(message.getBytes());
         try {
             FTPCommunication.addMedia(is, dirPath + id + ".json", false);

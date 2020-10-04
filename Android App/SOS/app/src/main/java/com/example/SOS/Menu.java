@@ -97,22 +97,30 @@ public class Menu extends AppCompatActivity {
         startActivity(intent);
     }
     public void sendData(){
+        String s;
         Map<String, String> map = new HashMap<>();
         map.put("lat", LocalFileRetriever.retrieveMap("dataMap",this).get("lat"));
         map.put("lon", LocalFileRetriever.retrieveMap("dataMap",this).get("lon"));
-        map.put("house_number", LocalFileRetriever.retrieveMap("locMap",this).get("\"house_number\""));
-        map.put("road", LocalFileRetriever.retrieveMap("locMap",this).get("\"road\""));
-        map.put("city", LocalFileRetriever.retrieveMap("locMap",this).get("\"city\""));
-        map.put("country", LocalFileRetriever.retrieveMap("locMap",this).get("\"country\""));
+        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"house_number\"");
+        s = s.substring(1,s.length()-1);
+        map.put("house_number", s);
+        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"road\"");
+        s = s.substring(1,s.length()-1);
+        map.put("road", s);
+        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"city\"");
+        s = s.substring(1,s.length()-1);
+        map.put("city", s);
+        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"country\"");
+        s = s.substring(1,s.length()-1);
+        map.put("country", s);
         map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
-        map.put("gender", LocalFileRetriever.retrieveMap("healthMap",this).get("gender"));
+        map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
         map.put("height", LocalFileRetriever.retrieveMap("healthMap",this).get("height"));
-        map.put("weight",LocalFileRetriever.retrieveMap("dataMap",this).get("weight"));
+        map.put("weight",LocalFileRetriever.retrieveMap("healthMap",this).get("weight"));
         map.put("language", LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new"));
         map.put("emergency_type", "Police");
 
         map.put("tts_true", "false");
-        map.put("tts_content", null);
 
         MessageSender.sendData(map);
 

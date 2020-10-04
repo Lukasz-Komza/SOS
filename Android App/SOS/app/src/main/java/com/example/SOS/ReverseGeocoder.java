@@ -39,19 +39,6 @@ public class ReverseGeocoder {
         return parseAddress(toParse);
     }
 
-    public static void tester() {
-        try {
-            URL url = new URL("http://www.google.com");
-            URLConnection connection = url.openConnection();
-            connection.connect();
-            System.out.println("Internet is connected");
-        } catch (MalformedURLException e) {
-            System.out.println("Internet is not connected");
-        } catch (IOException e) {
-            System.out.println("Internet is not connected");
-        }
-    }
-
 
     public static String getParamsString(Map<String, String> params, String url){
 
@@ -78,8 +65,9 @@ public class ReverseGeocoder {
         m = p.matcher(addressData);
         while (m.find()){
             String key = m.group();
-            System.out.println(key);
             if(m.find()){
+                System.out.println(key);
+                System.out.println(m.group());
                 addressMap.put(key, m.group());
             }
         }

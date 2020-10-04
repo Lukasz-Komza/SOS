@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Determine if the app is being opened for the first time
-        boolean FirstTime = isNullOrEmpty(LocalFileRetriever.retrieveMap("dataMap",this).get("FirstTime"));
+        boolean FirstTime = LocalFileRetriever.retrieveMap("dataMap",this) == null || LocalFileRetriever.retrieveMap("dataMap",this).get("FirstTime") == null;
 
         //If so then mark it as opened and start SetLang
         if (FirstTime) {

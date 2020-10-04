@@ -32,7 +32,7 @@ public class LocalFileRetriever {
                 line = reader.readLine();
             }
         } catch (IOException e) {
-            // Error occurred when opening raw file for reading.
+            e.printStackTrace();
         }
         return stringBuilder.toString();
     }

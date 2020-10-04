@@ -63,7 +63,10 @@ public class SetInfo extends AppCompatActivity {
 
         //Create a checkbox object
         CheckBox c1 = findViewById(R.id.LocationBox);
-        c1.setOnClickListener(new View.OnClickListener() {
+        if (!isNullOrEmpty(LocalFileRetriever.retrieveMap("dataMap",this).get("share_loc")) && LocalFileRetriever.retrieveMap("dataMap",this).get("share_loc").equals("true")){
+            c1.setChecked(true);
+        }
+            c1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Is the view now checked?
@@ -258,6 +261,7 @@ public class SetInfo extends AppCompatActivity {
         button.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_submit"));
     }
 
+
     public void nextPage() {
         //Enables location
         if (!isNullOrEmpty(LocalFileRetriever.retrieveMap("dataMap",this).get("share_loc")) && LocalFileRetriever.retrieveMap("dataMap",this).get("share_loc").equals("true")) {
@@ -342,51 +346,5 @@ public class SetInfo extends AppCompatActivity {
         alert.show();
     }
 
-    public void googleFitSync(){
-        // Setting a start and end date using a range of 1 week before this moment.
-        Calendar cal = Calendar.getInstance();
-        Date now = new Date();
-        cal.setTime(now);
-        long endTime = cal.getTimeInMillis();
-        cal.add(Calendar.WEEK_OF_YEAR, -1);
-        long startTime = cal.getTimeInMillis();
-
-        //Log these dates, not sure why
-        java.text.DateFormat dateFormat = getDateInstance();
-        Log.i(TAG, "Range Start: " + dateFormat.format(startTime));
-        Log.i(TAG, "Range End: " + dateFormat.format(endTime));
-
-        //Create a request to read the data of the scopes we want
-        DataReadRequest readRequest =
-                new DataReadRequest.Builder()
-                        .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-                        .read(DataType.TYPE_WEIGHT)
-                        .build();
-
-        //read in the datasets from the time range we want
-        Task<DataReadResponse> response = Fitness
-                .getHistoryClient(this, GoogleSignIn.getAccountForScopes(this, Fitness.SCOPE_BODY_READ))
-                .readData(readRequest);
-        DataReadResponse readDataResponse = null;
-        try {
-            readDataResponse = Tasks.await(response);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        List<DataSet> dataSets = readDataResponse.getDataSets();
-
-        //Parse through the datasets, store the data in memory
-        Map<String, String> healthMap = new HashMap<>();
-        for(DataSet ds : dataSets){
-            for(DataPoint dp: ds.getDataPoints()){
-                for (Field f : dp.getDataType().getFields()){
-                    healthMap.put(f.getName(), dp.getValue(f).toString());
-                }
-            }
-        }
-        LocalFileRetriever.storeMap("healthMap", healthMap,this);
-    }
 
 }
