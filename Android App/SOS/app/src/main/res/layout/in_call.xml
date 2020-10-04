@@ -76,7 +76,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_button"
+                        android:background="@drawable/fire_button"
+                        android:textColor="#DC143C"
                         android:layout_margin="10dp"/>
 
                     <Button
@@ -84,7 +85,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_button"
+                        android:background="@drawable/ems_button"
+                        android:textColor="#006400"
                         android:layout_margin="10dp"/>
 
                     <Button
@@ -92,7 +94,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/rounded_button"
+                        android:background="@drawable/police_button"
+                        android:textColor="#180AD1"
                         android:layout_margin="10dp"/>
                 </LinearLayout>
                 <LinearLayout
