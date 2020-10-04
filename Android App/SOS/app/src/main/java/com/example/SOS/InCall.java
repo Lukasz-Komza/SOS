@@ -41,7 +41,7 @@ import java.util.Map;
 import static android.os.Environment.DIRECTORY_PICTURES;
 import static android.os.Environment.getExternalStoragePublicDirectory;
 
-public class InCall extends AppCompatActivity {
+public class InCall extends AppCompatActivity implements Scrollable{
 
     private int REQUEST_TAKE_PHOTO = 1;
     private File file;
@@ -126,6 +126,9 @@ public class InCall extends AppCompatActivity {
                     //Get the text they entered and send it to the server
                     MessageSender.sendMessage(message);
 
+                    //Put the message to the scroll
+                    ((Scrollable) v.getContext()).addToScroll("Description: " +v.getText().toString());
+
                     //Set the text in the box to nothing
                     v.setText("");
                     return true;
@@ -180,8 +183,8 @@ public class InCall extends AppCompatActivity {
         map.put("city", LocalFileRetriever.retrieveMap("locMap",this).get("\"city\""));
         map.put("country", LocalFileRetriever.retrieveMap("locMap",this).get("\"country\""));
         map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
-        map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
-        map.put("height", LocalFileRetriever.retrieveMap("dataMap",this).get("height"));
+        map.put("gender", LocalFileRetriever.retrieveMap("healthMap",this).get("gender"));
+        map.put("height", LocalFileRetriever.retrieveMap("healthMap",this).get("height"));
         map.put("weight",LocalFileRetriever.retrieveMap("dataMap",this).get("weight"));
         map.put("language", LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new"));
         map.put("emergency_type", "Police");
@@ -225,22 +228,17 @@ public class InCall extends AppCompatActivity {
 
             String encodedPath = file.getAbsolutePath();
             Bitmap bitmap = BitmapFactory.decodeFile(encodedPath);
-            String text = createDialog(bitmap);
+            createDialog(bitmap);
 
             //Add the image to a scrolling image view
             ImageView myImage = new ImageView(this);
             myImage.setImageBitmap(bitmap);
             myImage.setRotation(90);
             myImage.setAdjustViewBounds(true);
-            myImage.setPadding(150,20,20,150);
-
-            //Add the text to scrolling text view
-            TextView myText = new TextView(this);
-            myText.setText(text);
+            myImage.setPadding(0,75,0,75);
 
             LinearLayout picLL = findViewById(R.id.image_scroll);
             picLL.addView(myImage);
-            picLL.addView(myText);
         }
     }
     private File createImageFile() throws IOException {
@@ -273,7 +271,7 @@ public class InCall extends AppCompatActivity {
             return -1;
         }
     }
-    public String createDialog(Bitmap bmp){
+    public void createDialog(Bitmap bmp){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(LocalFileRetriever.retrieveMap("stringMap",this).get("description_text"));
 
@@ -300,6 +298,13 @@ public class InCall extends AppCompatActivity {
 
         builder.show();
 
-        return input.getText();
+    }
+    public void addToScroll(String s){
+        //Add the text to scrolling text view
+        TextView myText = new TextView(this);
+        myText.setText(s);
+        myText.setPadding(100,75,0,75);
+        LinearLayout picLL = findViewById(R.id.image_scroll);
+        picLL.addView(myText);
     }
 }

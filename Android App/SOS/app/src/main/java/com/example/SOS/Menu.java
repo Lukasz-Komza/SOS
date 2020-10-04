@@ -105,8 +105,8 @@ public class Menu extends AppCompatActivity {
         map.put("city", LocalFileRetriever.retrieveMap("locMap",this).get("\"city\""));
         map.put("country", LocalFileRetriever.retrieveMap("locMap",this).get("\"country\""));
         map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
-        map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
-        map.put("height", LocalFileRetriever.retrieveMap("dataMap",this).get("height"));
+        map.put("gender", LocalFileRetriever.retrieveMap("healthMap",this).get("gender"));
+        map.put("height", LocalFileRetriever.retrieveMap("healthMap",this).get("height"));
         map.put("weight",LocalFileRetriever.retrieveMap("dataMap",this).get("weight"));
         map.put("language", LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new"));
         map.put("emergency_type", "Police");

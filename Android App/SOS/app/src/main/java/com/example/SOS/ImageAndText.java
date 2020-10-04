@@ -28,7 +28,7 @@ public class ImageAndText extends RelativeLayout {
         init(context);
     }
 
-    private void init(Context context) {
+    private void init(final Context context) {
         rootView = inflate(context, R.layout.image_and_text, this);
 
         et = rootView.findViewById(R.id.description_text);
@@ -50,6 +50,9 @@ public class ImageAndText extends RelativeLayout {
 
                     //Get the text they entered and send it to the server
                     MessageSender.sendImage(bmp, message);
+
+                    //Put the text in the scroll
+                    ((Scrollable) context).addToScroll("Caption: " +v.getText().toString());
 
                     //TODO make the textbox darker
                     return true;

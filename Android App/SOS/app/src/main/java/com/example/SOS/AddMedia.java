@@ -39,7 +39,7 @@ import java.util.Map;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
 
-public class AddMedia extends AppCompatActivity {
+public class AddMedia extends AppCompatActivity implements Scrollable{
 
     private int REQUEST_TAKE_PHOTO = 1;
     private File file;
@@ -93,6 +93,9 @@ public class AddMedia extends AppCompatActivity {
                     //Get the text they entered and send it to the server
                     MessageSender.sendMessage(message);
 
+                    //Put the message to the scroll
+                    ((Scrollable) v.getContext()).addToScroll("Description: " + v.getText().toString());
+
                     //Set the text in the box to nothing
                     //TODO  make the textbox darker
                     return true;
@@ -115,8 +118,8 @@ public class AddMedia extends AppCompatActivity {
         map.put("country", LocalFileRetriever.retrieveMap("locMap",this).get("\"country\""));
         map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
         map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
-        map.put("height", LocalFileRetriever.retrieveMap("dataMap",this).get("height"));
-        map.put("weight",LocalFileRetriever.retrieveMap("dataMap",this).get("weight"));
+        map.put("height", LocalFileRetriever.retrieveMap("healthMap",this).get("height"));
+        map.put("weight",LocalFileRetriever.retrieveMap("healthMap",this).get("weight"));
         map.put("language", LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new"));
         map.put("emergency_type", "Police");
 
@@ -167,7 +170,7 @@ public class AddMedia extends AppCompatActivity {
             myImage.setImageBitmap(bitmap);
             myImage.setRotation(90);
             myImage.setAdjustViewBounds(true);
-            myImage.setPadding(150,20,20,150);
+            myImage.setPadding(0,75,0,75);
             LinearLayout picLL = findViewById(R.id.image_scroll);
             picLL.addView(myImage);
         }
@@ -227,5 +230,13 @@ public class AddMedia extends AppCompatActivity {
         });
 
         builder.show();
+    }
+    public void addToScroll(String s){
+        //Add the text to scrolling text view
+        TextView myText = new TextView(this);
+        myText.setText(s);
+        myText.setPadding(100,75,0,75);
+        LinearLayout picLL = findViewById(R.id.image_scroll);
+        picLL.addView(myText);
     }
 }
