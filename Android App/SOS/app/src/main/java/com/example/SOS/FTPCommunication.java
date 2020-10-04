@@ -13,7 +13,7 @@ import org.apache.commons.net.ftp.FTPReply;
 public class FTPCommunication {
     private static String server = "sos.komza.com";
     private static int port = 21;
-    private static String pass = /*"passwordhere"*/null;
+    private static String pass = "G!10w!ceStr0ma822";
     private static String user = "ftp.komza.com|lkomza";
     private static FTPClient ftpClient = new FTPClient();
     public static void connect() throws IOException{

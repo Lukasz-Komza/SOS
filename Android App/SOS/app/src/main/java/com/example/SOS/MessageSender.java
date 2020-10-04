@@ -47,7 +47,7 @@ public class MessageSender {
         try {
             FTPCommunication.addMedia(is, dirPath + id + ".json", false);
         }catch(Exception e){
-            //TODO
+            e.printStackTrace();
         }
     }
     public static void sendMessage(String s){
@@ -55,7 +55,7 @@ public class MessageSender {
         try {
             FTPCommunication.addMedia(is, dirPath + id + ".txt", false);
         }catch(Exception e){
-            //TODO
+            e.printStackTrace();
         }
     }
     public static void sendImage(Bitmap imageBitmap, String s){
@@ -73,7 +73,7 @@ public class MessageSender {
             FTPCommunication.addMedia(bs, dirPath + imageNum +"_" + id +".jpg", true);
             FTPCommunication.addMedia(is, dirPath + imageNum + "_" + id + ".txt", false);
         }catch(Exception e){
-            //TODO
+            e.printStackTrace();
         }
 
         imageNum++;

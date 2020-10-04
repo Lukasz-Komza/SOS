@@ -274,8 +274,7 @@ public class SetInfo extends AppCompatActivity {
                                 // Got last known location. In some rare situations this can be null.
                                 if (location != null) {
                                     //Return to set info to store
-                                    SetInfo a = (SetInfo) getApplicationContext();
-                                    a.interpretLocation(location);
+                                    SetInfo.interpretLocation(location, getApplicationContext());
                                 }
                             }
                         });
@@ -288,27 +287,28 @@ public class SetInfo extends AppCompatActivity {
 
 
     }
-    public void interpretLocation(Location location){
+    public static void interpretLocation(Location location, Context context){
         //Convert these to address form
         String lat = Double.toString(location.getLatitude());
         String lon = Double.toString(location.getLongitude());
 
-        Map<String,String> map = LocalFileRetriever.retrieveMap("dataMap", this);
+        Map<String,String> map = LocalFileRetriever.retrieveMap("dataMap", context);
         map.put("lat", lat);
         map.put("lon", lon);
-        LocalFileRetriever.storeMap("dataMap", map, this);
+        LocalFileRetriever.storeMap("dataMap", map, context);
 
         try{
             StrictMode.ThreadPolicy tp = StrictMode.ThreadPolicy.LAX;
             StrictMode.setThreadPolicy(tp);
 
             Map<String, String> addressMap = ReverseGeocoder.ReverseGeocode(lat, lon);
-            LocalFileRetriever.storeMap("locMap", addressMap,this);
+            LocalFileRetriever.storeMap("locMap", addressMap,context);
 
             map.put("country_code", addressMap.get("\"country_code\""));
-            LocalFileRetriever.storeMap("dataMap", map,this);
+            LocalFileRetriever.storeMap("dataMap", map,context);
         }
         catch(Exception e){
+            e.printStackTrace();
         }
 
     }
