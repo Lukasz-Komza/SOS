@@ -61,6 +61,29 @@ public class SetInfo extends AppCompatActivity {
         StrictMode.ThreadPolicy tp = StrictMode.ThreadPolicy.LAX;
         StrictMode.setThreadPolicy(tp);
 
+        String newString;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                newString= null;
+            } else {
+                newString= extras.getString("Restart");
+            }
+        } else {
+            newString= (String) savedInstanceState.getSerializable("Restart");
+        }
+        if(newString != null && newString.equals("Restart")){
+            CheckBox view = findViewById(R.id.HealthBox);
+            //Store that it is checked
+            LocalFileRetriever.storeToMap("dataMap", "share_health","true", view.getContext());
+            //Hide the checkbox
+            view.setVisibility(View.GONE);
+            //Open the google sign in page
+            Intent intent = new Intent(view.getContext(), GoogleSignInPage.class);
+            intent.putExtra("Restart", "Start");
+            startActivity(intent);
+        }
+
         //Create a checkbox object
         CheckBox c1 = findViewById(R.id.LocationBox);
         if (!isNullOrEmpty(LocalFileRetriever.retrieveMap("dataMap",this).get("share_loc")) && LocalFileRetriever.retrieveMap("dataMap",this).get("share_loc").equals("true")){
@@ -78,7 +101,7 @@ public class SetInfo extends AppCompatActivity {
 
         //TODO why doesnt it work the first time
         CheckBox c2 = findViewById(R.id.HealthBox);
-        if (!isNullOrEmpty(LocalFileRetriever.retrieveMap("dataMap",this).get("share_health")) && LocalFileRetriever.retrieveMap("dataMap",this).get("share_health").equals("true")){
+        if (LocalFileRetriever.retrieveMap("healthMap",this) != null && LocalFileRetriever.retrieveMap("healthMap",this).get("synced") != null){
             c2.setChecked(true);
         }
         c2.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +113,7 @@ public class SetInfo extends AppCompatActivity {
                 view.setVisibility(View.GONE);
                 //Open the google sign in page
                 Intent intent = new Intent(view.getContext(), GoogleSignInPage.class);
+                intent.putExtra("Restart", "Restart");
                 startActivity(intent);
             }
         } );

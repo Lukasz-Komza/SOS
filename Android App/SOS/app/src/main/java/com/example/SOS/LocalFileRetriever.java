@@ -44,7 +44,7 @@ public class LocalFileRetriever {
             map = (Map<String, String>) is.readObject();
             is.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

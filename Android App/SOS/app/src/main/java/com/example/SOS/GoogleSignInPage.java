@@ -2,6 +2,7 @@ package com.example.SOS;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.tasks.Task;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,22 +27,22 @@ public class GoogleSignInPage extends AppCompatActivity {
     private static final String TAG = "GoogleSignInPage";
     private GoogleSignInClient gsic;
     private static final ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private String newString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.google_sign_in_page);
-
-        // Set the dimensions of the sign-in button.
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
-
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((GoogleSignInPage) view.getContext()).signIn();
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                newString= null;
+            } else {
+                newString= extras.getString("Restart");
             }
-        });
+        } else {
+            newString= (String) savedInstanceState.getSerializable("Restart");
+        }
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -57,12 +60,14 @@ public class GoogleSignInPage extends AppCompatActivity {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
 
+        if(newString != null && newString.equals("Restart")){
+            signIn();
+        }
+
     }
 
     private void updateUI(GoogleSignInAccount account) {
         if(account == null){
-            SignInButton signInButton = findViewById(R.id.sign_in_button);
-            signInButton.setVisibility(View.VISIBLE);
         }
         else{
             //Get google fit data
@@ -72,6 +77,7 @@ public class GoogleSignInPage extends AppCompatActivity {
 
             //Start up the SetInfo
             Intent intent = new Intent(this, SetInfo.class);
+            intent.putExtra("Restart", newString);
             startActivity(intent);
         }
     }
