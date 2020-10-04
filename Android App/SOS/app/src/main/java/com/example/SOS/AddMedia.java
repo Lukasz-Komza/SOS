@@ -56,7 +56,6 @@ public class AddMedia extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((AddMedia) v.getContext()).dispatchTakePictureIntent();
-                ((AddMedia) v.getContext()).createDialog();
             }
         });
         imageButton.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_add_image"));
@@ -75,15 +74,14 @@ public class AddMedia extends AppCompatActivity {
 
                     String message = v.getText().toString();
                     if(!LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new").equals("English")){
-                        String translated = LanguageTranslation.translate(message, "English", LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new"));
-                        v.setText(translated);
+                        message = LanguageTranslation.translate(message, LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new"), "English");
                     }
 
                     //Get the text they entered and send it to the server
-                    MessageSender.sendMessage(v);
+                    MessageSender.sendMessage(message);
 
                     //Set the text in the box to nothing
-                    v.setText("");
+                    //TODO  make the textbox darker
                     return true;
                 }
                 return false;
@@ -132,10 +130,7 @@ public class AddMedia extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 
-            MessageSender.sendImage(imageBitmap);
-
-            ImageView imageView = new ImageView(this);
-            imageView.setImageBitmap(imageBitmap);
+            createDialog(imageBitmap);
         }
     }
     public int getId(){
@@ -151,17 +146,16 @@ public class AddMedia extends AppCompatActivity {
             return -1;
         }
     }
-    public void createDialog(){
+    public void createDialog(Bitmap bmp){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Title");
 
         // Set up the input
-        final EditText input = new EditText(this);
+        final ImageAndText input = new ImageAndText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        final ImageView image = new ImageView(this);
+        //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        input.setImageBitMap(bmp);
         builder.setView(input);
-        builder.setView(image);
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

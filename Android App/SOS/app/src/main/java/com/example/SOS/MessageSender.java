@@ -50,8 +50,7 @@ public class MessageSender {
             //TODO
         }
     }
-    public static void sendMessage(TextView v){
-        String s = v.getText().toString();
+    public static void sendMessage(String s){
         InputStream is = new ByteArrayInputStream(s.getBytes());
         try {
             FTPCommunication.addMedia(is, dirPath + id + ".txt", false);
@@ -59,7 +58,10 @@ public class MessageSender {
             //TODO
         }
     }
-    public static void sendImage(Bitmap imageBitmap){
+    public static void sendImage(Bitmap imageBitmap, String s){
+        //Convert description text to stream
+        InputStream is = new ByteArrayInputStream(s.getBytes());
+
         //Convert bitmap to input stream
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
@@ -69,6 +71,7 @@ public class MessageSender {
         //Add the image to the server
         try {
             FTPCommunication.addMedia(bs, dirPath + imageNum +"_" + id +".jpg", true);
+            FTPCommunication.addMedia(is, dirPath + imageNum + "_" + id + ".txt", false);
         }catch(Exception e){
             //TODO
         }
