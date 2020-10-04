@@ -8,51 +8,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <ScrollView android:id="@+id/ScrollView01"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
-                <EditText
-                    android:id="@+id/message"
-                    android:layout_width="fill_parent"
-                    android:layout_height="200dp"
-                    android:inputType="textCapSentences|textAutoCorrect"
-                    android:background="@drawable/rounded_textbox"
-                    android:layout_margin="10dp"
-                    android:imeOptions="actionDone"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5" />
-                <Button
-                    android:id="@+id/addImage"
-                    android:layout_width="0dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_button"
-                    android:layout_weight="1"
-                    android:layout_margin="10dp"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:text="@string/add_image" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/image_scroll">
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <EditText
+                        android:id="@+id/message"
+                        android:layout_width="fill_parent"
+                        android:layout_height="200dp"
+                        android:inputType="textCapSentences|textAutoCorrect"
+                        android:background="@drawable/rounded_textbox"
+                        android:layout_margin="10dp"
+                        android:imeOptions="actionDone"/>
 
-        </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.5" />
+                    <Button
+                        android:id="@+id/addImage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_button"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:text="@string/add_image" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/image_scroll">
+
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </android.widget.RelativeLayout>
