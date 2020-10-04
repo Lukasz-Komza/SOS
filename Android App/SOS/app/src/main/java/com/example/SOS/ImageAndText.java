@@ -43,6 +43,9 @@ public class ImageAndText extends RelativeLayout {
                     InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
+                    //Put the text in the scroll
+                    ((Scrollable) context).addToScroll("Caption: " +v.getText().toString());
+
                     String message = v.getText().toString();
                     if(!LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new").equals("English")){
                         message = LanguageTranslation.translate(message, LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new"), "English");
@@ -51,10 +54,7 @@ public class ImageAndText extends RelativeLayout {
                     //Get the text they entered and send it to the server
                     MessageSender.sendImage(bmp, message);
 
-                    //Put the text in the scroll
-                    ((Scrollable) context).addToScroll("Caption: " +v.getText().toString());
-
-                    //TODO make the textbox darker
+                    et.setBackgroundResource(R.drawable.text_boxless_dark);
                     return true;
                 }
                 return false;

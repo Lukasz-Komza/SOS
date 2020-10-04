@@ -66,6 +66,9 @@ public class AddMedia extends AppCompatActivity implements Scrollable{
 
         sendData();
 
+        final TextView tv2 = (TextView) findViewById(R.id.idView);
+        tv2.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("caption_text"));
+
         //Listen for the add image button
         final Button imageButton = findViewById(R.id.addImage);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +89,9 @@ public class AddMedia extends AppCompatActivity implements Scrollable{
                     InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
+                    //Put the message to the scroll
+                    ((Scrollable) v.getContext()).addToScroll("Description: " + v.getText().toString());
+
                     String message = v.getText().toString();
                     if(!LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new").equals("English")){
                         message = LanguageTranslation.translate(message, LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new"), "English");
@@ -94,11 +100,8 @@ public class AddMedia extends AppCompatActivity implements Scrollable{
                     //Get the text they entered and send it to the server
                     MessageSender.sendMessage(message);
 
-                    //Put the message to the scroll
-                    ((Scrollable) v.getContext()).addToScroll("Description: " + v.getText().toString());
-
                     //Set the text in the box to nothing
-                    //TODO  make the textbox darker
+                    v.setBackgroundResource(R.drawable.text_boxless_dark);
                     return true;
                 }
                 return false;

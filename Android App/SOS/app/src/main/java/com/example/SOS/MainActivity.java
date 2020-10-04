@@ -55,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
             stringMap.put("word_add_text", "Add Text");
             stringMap.put("word_add_image", "Add Image");
             stringMap.put("word_media_hint", "Describe your emergency:");
-            stringMap.put("word_text_id", "Your id is ");
+            stringMap.put("word_text_id", "In order to attach media to your call, inform the " +
+                    "dispatcher thar your data is at sos.komza.com and that your call id is ");
             stringMap.put("description_text", "Add a Description");
+            stringMap.put("caption_text", "Your attached Media");
             LocalFileRetriever.storeMap("stringMap", stringMap, this);
 
             //Set the default language

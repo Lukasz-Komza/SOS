@@ -66,8 +66,11 @@ public class InCall extends AppCompatActivity implements Scrollable{
         String dirPath = "/Media/";
         MessageSender.setDirPath(dirPath);
 
-        final TextView tv = (TextView) findViewById(R.id.idView);
-        tv.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_text_id") + Integer.toString(id));
+        final TextView tv1 = (TextView) findViewById(R.id.idView);
+        tv1.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_text_id") + Integer.toString(id));
+
+        final TextView tv2 = (TextView) findViewById(R.id.idView);
+        tv2.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("caption_text"));
 
         Button fire = findViewById(R.id.fire);
         fire.setOnClickListener(new View.OnClickListener() {
@@ -119,15 +122,15 @@ public class InCall extends AppCompatActivity implements Scrollable{
                     InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
+                    //Put the message to the scroll
+                    ((Scrollable) v.getContext()).addToScroll("Description: " +v.getText().toString());
+
                     String message = v.getText().toString();
                     if(!LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new").equals("English")){
                         message = LanguageTranslation.translate(message, "English", LocalFileRetriever.retrieveMap("dataMap",v.getContext()).get("lang_new"));
                     }
                     //Get the text they entered and send it to the server
                     MessageSender.sendMessage(message);
-
-                    //Put the message to the scroll
-                    ((Scrollable) v.getContext()).addToScroll("Description: " +v.getText().toString());
 
                     //Set the text in the box to nothing
                     v.setText("");
