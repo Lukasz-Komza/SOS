@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
             Map<String, String> stringMap = new HashMap<>();
 
             //Set up map of all the strings in the app view
-            stringMap.put("word_fire", "Fire Department");
-            stringMap.put("word_ems", "Emergency Medical Service");
-            stringMap.put("word_police", "Police Department");
+            stringMap.put("word_fire", "Fire");
+            stringMap.put("word_ems", "EMS");
+            stringMap.put("word_police", "Police");
             stringMap.put("word_app_name", "Practice");
             stringMap.put("word_language", "Please select language");
             stringMap.put("word_next", "Next");
