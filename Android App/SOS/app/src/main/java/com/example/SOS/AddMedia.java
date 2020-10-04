@@ -165,6 +165,7 @@ public class AddMedia extends AppCompatActivity {
             //Add the image to a scrolling image view
             ImageView myImage = new ImageView(this);
             myImage.setImageBitmap(bitmap);
+            myImage.setRotation(90);
             LinearLayout picLL = findViewById(R.id.image_scroll);
             picLL.addView(myImage);
         }
