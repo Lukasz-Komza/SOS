@@ -99,7 +99,6 @@ public class SetInfo extends AppCompatActivity {
         } );
         c1.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_loc"));
 
-        //TODO why doesnt it work the first time
         CheckBox c2 = findViewById(R.id.HealthBox);
         if (LocalFileRetriever.retrieveMap("healthMap",this) != null && LocalFileRetriever.retrieveMap("healthMap",this).get("synced") != null){
             c2.setChecked(true);

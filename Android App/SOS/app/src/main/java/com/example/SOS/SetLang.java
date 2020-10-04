@@ -74,11 +74,14 @@ public class SetLang extends AppCompatActivity {
         Map<String, String> map = LocalFileRetriever.retrieveMap("stringMap",this);
         if (!lang_old.equals(lang_new)) {
             for(Map.Entry<String, String> entry : map.entrySet()){
-                if(entry.getKey().split("_")[0].equals("word")){
-                    map.put(entry.getKey(), LanguageTranslation.translate((String) entry.getValue(), lang_old, lang_new));
-                }
+                String value = LanguageTranslation.translate((String) entry.getValue(), lang_old, lang_new);
+                System.out.println(entry.getKey() + " " + value);
+                System.out.println(lang_old + " " + lang_new);
+                map.put(entry.getKey(),value);
             }
         }
+        LocalFileRetriever.storeMap("stringMap", map,this);
+        LocalFileRetriever.storeToMap("dataMap","lang_old",lang_new,this);
 
         //Goes to the setinfo page
         Intent intent = new Intent(this, SetInfo.class);

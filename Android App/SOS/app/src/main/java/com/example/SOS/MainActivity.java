@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         //If so then mark it as opened and start SetLang
         if (FirstTime) {
+            System.out.println("Visited");
+
             Map<String, String> dataMap = new HashMap<>();
             Map<String, String> stringMap = new HashMap<>();
 

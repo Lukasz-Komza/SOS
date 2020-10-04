@@ -35,7 +35,7 @@ public class FTPCommunication {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
         }
         if (!ftpClient.storeFile(remote, is)) {
-            //TODO
+            System.out.println("Unable to access the network.");
         }
 
     }
@@ -45,13 +45,13 @@ public class FTPCommunication {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
         }
         if (!ftpClient.storeFile(remote, is)) {
-            //TODO
+            System.out.println("Unable to access the network.");
         }
     }
     public static String addDirectory(String dirName, String remote) throws IOException{
         connect();
         if (!ftpClient.makeDirectory(remote + "\\" + dirName)) {
-            //TODO
+            System.out.println("Unable to access the network.");
         }
         return remote + "\\" + dirName;
     }

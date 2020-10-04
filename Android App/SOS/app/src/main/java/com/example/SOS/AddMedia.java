@@ -117,22 +117,30 @@ public class AddMedia extends AppCompatActivity implements Scrollable{
         Map<String, String> map = new HashMap<>();
         map.put("lat", LocalFileRetriever.retrieveMap("dataMap",this).get("lat"));
         map.put("lon", LocalFileRetriever.retrieveMap("dataMap",this).get("lon"));
-        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"house_number\"");
-        s = s.substring(1,s.length()-1);
-        map.put("house_number", s);
-        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"road\"");
-        s = s.substring(1,s.length()-1);
-        map.put("road", s);
-        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"city\"");
-        s = s.substring(1,s.length()-1);
-        map.put("city", s);
-        s = LocalFileRetriever.retrieveMap("locMap",this).get("\"country\"");
-        s = s.substring(1,s.length()-1);
-        map.put("country", s);
+        try{
+            s = LocalFileRetriever.retrieveMap("locMap",this).get("\"house_number\"");
+            s = s.substring(1,s.length()-1);
+            map.put("house_number", s);
+            s = LocalFileRetriever.retrieveMap("locMap",this).get("\"road\"");
+            s = s.substring(1,s.length()-1);
+            map.put("road", s);
+            s = LocalFileRetriever.retrieveMap("locMap",this).get("\"city\"");
+            s = s.substring(1,s.length()-1);
+            map.put("city", s);
+            s = LocalFileRetriever.retrieveMap("locMap",this).get("\"country\"");
+            s = s.substring(1,s.length()-1);
+            map.put("country", s);
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
         map.put("name", LocalFileRetriever.retrieveMap("dataMap",this).get("name"));
         map.put("gender", LocalFileRetriever.retrieveMap("dataMap",this).get("gender"));
-        map.put("height", LocalFileRetriever.retrieveMap("healthMap",this).get("height"));
-        map.put("weight",LocalFileRetriever.retrieveMap("healthMap",this).get("weight"));
+        try {
+            map.put("height", LocalFileRetriever.retrieveMap("healthMap",this).get("height"));
+            map.put("weight",LocalFileRetriever.retrieveMap("healthMap",this).get("weight"));
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
         map.put("language", LocalFileRetriever.retrieveMap("dataMap",this).get("lang_new"));
         map.put("emergency_type", "Police");
 
