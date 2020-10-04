@@ -69,7 +69,7 @@ public class InCall extends AppCompatActivity implements Scrollable{
         final TextView tv1 = (TextView) findViewById(R.id.idView);
         tv1.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("word_text_id") + Integer.toString(id));
 
-        final TextView tv2 = (TextView) findViewById(R.id.idView);
+        final TextView tv2 = (TextView) findViewById(R.id.caption_text);
         tv2.setText(LocalFileRetriever.retrieveMap("stringMap",this).get("caption_text"));
 
         Button fire = findViewById(R.id.fire);
@@ -299,13 +299,24 @@ public class InCall extends AppCompatActivity implements Scrollable{
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         input.setImageBitMap(bmp);
+        input.setId(R.id.infoText);
         builder.setView(input);
 
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //m_Text = input.getText().toString();
+                ImageAndText iat = ((AlertDialog) dialog).findViewById(R.id.infoText);
+
+                String message = iat.getText().toString();
+                if(!LocalFileRetriever.retrieveMap("dataMap",iat.getContext()).get("lang_new").equals("English")){
+                    message = LanguageTranslation.translate(message, LocalFileRetriever.retrieveMap("dataMap",iat.getContext()).get("lang_new"), "English");
+                }
+
+                Bitmap bmp = iat.getImageBitmap();
+
+                //Get the text they entered and send it to the server
+                MessageSender.sendImage(bmp, message);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

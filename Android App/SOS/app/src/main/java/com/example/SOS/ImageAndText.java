@@ -66,6 +66,9 @@ public class ImageAndText extends RelativeLayout {
         iv.setRotation(90);
         bmp = bitMap;
     }
+    public Bitmap getImageBitmap(){
+        return bmp;
+    }
     public String getText(){
         return et.getText().toString();
     }
