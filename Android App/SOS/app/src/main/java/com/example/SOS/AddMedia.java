@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -160,6 +161,12 @@ public class AddMedia extends AppCompatActivity {
             String encodedPath = file.getAbsolutePath();
             Bitmap bitmap = BitmapFactory.decodeFile(encodedPath);
             createDialog(bitmap);
+
+            //Add the image to a scrolling image view
+            ImageView myImage = new ImageView(this);
+            myImage.setImageBitmap(bitmap);
+            LinearLayout picLL = findViewById(R.id.image_scroll);
+            picLL.addView(myImage);
         }
     }
     private File createImageFile() throws IOException {
@@ -199,7 +206,6 @@ public class AddMedia extends AppCompatActivity {
         // Set up the input
         final ImageAndText input = new ImageAndText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         input.setImageBitMap(bmp);
         builder.setView(input);
 
