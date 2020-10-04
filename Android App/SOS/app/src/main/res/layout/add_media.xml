@@ -6,7 +6,9 @@
     tools:context=".AddMedia">
     <ScrollView android:id="@+id/ScrollView01"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:fadingEdge="none">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/image_scroll">
-
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

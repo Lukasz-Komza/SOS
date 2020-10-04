@@ -166,6 +166,8 @@ public class AddMedia extends AppCompatActivity {
             ImageView myImage = new ImageView(this);
             myImage.setImageBitmap(bitmap);
             myImage.setRotation(90);
+            myImage.setAdjustViewBounds(true);
+            myImage.setPadding(150,20,20,150);
             LinearLayout picLL = findViewById(R.id.image_scroll);
             picLL.addView(myImage);
         }
