@@ -78,6 +78,9 @@ public class SetInfo extends AppCompatActivity {
 
         //TODO why doesnt it work the first time
         CheckBox c2 = findViewById(R.id.HealthBox);
+        if (!isNullOrEmpty(LocalFileRetriever.retrieveMap("dataMap",this).get("share_health")) && LocalFileRetriever.retrieveMap("dataMap",this).get("share_health").equals("true")){
+            c2.setChecked(true);
+        }
         c2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

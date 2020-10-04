@@ -19,7 +19,6 @@ public class FTPCommunication {
     public static void connect() throws IOException{
         ftpClient.connect(server, port);
         int replyCode = ftpClient.getReplyCode();
-
         if (!FTPReply.isPositiveCompletion(replyCode)) {
         }
         boolean success = ftpClient.login(user, pass);
