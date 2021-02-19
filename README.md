@@ -1,4 +1,4 @@
-# hackMIT-SOS
+# Overview
 
 The current emergency services system is dated facilitating only a single form of communication - voice. This form of communication is limiting, slow and often leads to communication errors. SOS is a platform that addresses these issues through a simplistic app and user-friendly website. We aim to increase the flow of communication between citizens and 911 operators by creating additional pipelines of communication: multimedia, text, caller info, translation services, and artificial intelligence.
 
